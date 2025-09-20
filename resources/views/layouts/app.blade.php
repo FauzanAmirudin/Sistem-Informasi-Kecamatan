@@ -7,6 +7,9 @@
     
     <title>@yield('title', 'Sistem Informasi Kecamatan Belitang Jaya')</title>
     
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}" type="image/png">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -25,15 +28,66 @@
     <!-- Custom CSS menggunakan Bootstrap utilities -->
     <style>
         .bg-gradient-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0504ff 0%, #3d5af1 100%) !important;
         }
         
         .bg-gradient-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+            background: linear-gradient(135deg, #4e73df 0%, #8cb3ff 100%) !important;
         }
         
         .shadow-custom {
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        /* Tambahan perpaduan warna biru */
+        .bg-blue-light {
+            background-color: #e6e9ff !important;
+        }
+        
+        .bg-blue-medium {
+            background-color: #b1b8ff !important;
+        }
+        
+        .text-blue-primary {
+            color: #0504ff !important;
+        }
+        
+        .border-blue-primary {
+            border-color: #0504ff !important;
+        }
+        
+        .btn-blue-primary {
+            background-color: #0504ff;
+            border-color: #0504ff;
+            color: white;
+        }
+        
+        .btn-blue-primary:hover {
+            background-color: #0000d6;
+            border-color: #0000d6;
+            color: white;
+        }
+        
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar .position-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            padding-top: 1.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
         
         .sidebar-link {
@@ -50,6 +104,25 @@
         }
         
         @media (max-width: 767.98px) {
+            .sidebar {
+                position: fixed;
+                top: 56px; /* Height of mobile navbar */
+                width: 100%;
+                z-index: 999;
+            }
+            
+            .sidebar.collapse:not(.show) {
+                display: none;
+            }
+            
+            .sidebar.collapse.show {
+                display: block;
+            }
+            
+            main {
+                margin-left: 0 !important;
+            }
+            
             .sidebar-link {
                 padding: 0.75rem 1rem;
                 margin-bottom: 0.5rem;

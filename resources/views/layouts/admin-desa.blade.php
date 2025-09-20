@@ -38,68 +38,109 @@
                 
                 <!-- Navigation Menu -->
                 <ul class="nav flex-column px-2">
+                    <!-- Dashboard Dropdown -->
                     <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.dashboard') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.dashboard') }}">
-                            <i class="fas fa-tachometer-alt me-2"></i>
-                            Dashboard
+                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.dashboard') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                           data-bs-toggle="collapse" href="#dashboardCollapse" role="button" aria-expanded="false" aria-controls="dashboardCollapse">
+                            <div>
+                                <i class="fas fa-tachometer-alt me-2"></i>
+                                Dashboard
+                            </div>
+                            <i class="fas fa-chevron-down small"></i>
                         </a>
+                        <div class="collapse {{ request()->routeIs('admin-desa.dashboard') ? 'show' : '' }}" id="dashboardCollapse">
+                            <ul class="nav flex-column ms-3 mt-1">
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.dashboard') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.dashboard') }}">
+                                        <i class="fas fa-chart-pie me-2"></i>
+                                        Dashboard
+                                     </a>
+                                 </li>
+                             </ul>
+                        </div>
                     </li>
                     
+                    <!-- Master Data Dropdown -->
                     <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.desa.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.desa.index') }}">
-                            <i class="fas fa-home me-2"></i>
-                            Data Desa
+                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.desa.*') || request()->routeIs('admin-desa.profil.*') || request()->routeIs('admin-desa.penduduk.*') || request()->routeIs('admin-desa.perangkat-desa.*') || request()->routeIs('admin-desa.aset-desa.*') || request()->routeIs('admin-desa.aset-tanah-warga.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                           data-bs-toggle="collapse" href="#masterDataCollapse" role="button" aria-expanded="false" aria-controls="masterDataCollapse">
+                            <div>
+                                <i class="fas fa-database me-2"></i>
+                                Master Data
+                            </div>
+                            <i class="fas fa-chevron-down small"></i>
                         </a>
+                        <div class="collapse {{ request()->routeIs('admin-desa.desa.*') || request()->routeIs('admin-desa.profil.*') || request()->routeIs('admin-desa.penduduk.*') || request()->routeIs('admin-desa.perangkat-desa.*') || request()->routeIs('admin-desa.aset-desa.*') || request()->routeIs('admin-desa.aset-tanah-warga.*') ? 'show' : '' }}" id="masterDataCollapse">
+                            <ul class="nav flex-column ms-3 mt-1">
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.desa.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.desa.index') }}">
+                                        <i class="fas fa-home me-2"></i>
+                                        Data Desa
+                                    </a>
+                                </li>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.profil.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.profil.index') }}">
+                                        <i class="fas fa-id-card me-2"></i>
+                                        Profil Desa
+                                    </a>
+                                </li>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.penduduk.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.penduduk.index') }}">
+                                        <i class="fas fa-users me-2"></i>
+                                        Data Penduduk
+                                    </a>
+                                </li>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.perangkat-desa.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.perangkat-desa.index') }}">
+                                        <i class="fas fa-user-tie me-2"></i>
+                                        Perangkat Desa
+                                    </a>
+                                </li>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.aset-desa.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.aset-desa.index') }}">
+                                        <i class="fas fa-building me-2"></i>
+                                        Aset Desa
+                                    </a>
+                                </li>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.aset-tanah-warga.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.aset-tanah-warga.index') }}">
+                                        <i class="fas fa-home me-2"></i>
+                                        Aset Tanah Warga
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     
+                    <!-- Konfigurasi Dropdown -->
                     <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.profil.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.profil.index') }}">
-                            <i class="fas fa-id-card me-2"></i>
-                            Profil Desa
+                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.dokumen.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                           data-bs-toggle="collapse" href="#konfigurasiCollapse" role="button" aria-expanded="false" aria-controls="konfigurasiCollapse">
+                            <div>
+                                <i class="fas fa-cog me-2"></i>
+                                Konfigurasi
+                            </div>
+                            <i class="fas fa-chevron-down small"></i>
                         </a>
+                        <div class="collapse {{ request()->routeIs('admin-desa.dokumen.*') ? 'show' : '' }}" id="konfigurasiCollapse">
+                            <ul class="nav flex-column ms-3 mt-1">
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.dokumen.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.dokumen.index') }}">
+                                        <i class="fas fa-folder me-2"></i>
+                                        Dokumen
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    
-                    <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.penduduk.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.penduduk.index') }}">
-                            <i class="fas fa-users me-2"></i>
-                            Data Penduduk
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.perangkat-desa.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.perangkat-desa.index') }}">
-                            <i class="fas fa-user-tie me-2"></i>
-                            Perangkat Desa
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.aset-desa.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.aset-desa.index') }}">
-                            <i class="fas fa-building me-2"></i>
-                            Aset Desa
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.aset-tanah-warga.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.aset-tanah-warga.index') }}">
-                            <i class="fas fa-home me-2"></i>
-                            Aset Tanah Warga
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 {{ request()->routeIs('admin-desa.dokumen.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
-                           href="{{ route('admin-desa.dokumen.index') }}">
-                            <i class="fas fa-folder me-2"></i>
-                            Dokumen
-                        </a>
                     </li>
                     
                     <li class="nav-item mb-1">
@@ -133,12 +174,21 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="col-md-9 col-lg-10 ms-sm-auto px-3 px-md-4 py-4">
-            <!-- Page Header -->
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-3 px-md-4 py-4" style="margin-left: 16.666667%;">
+            <!-- Page Header with Logo and Welcome Message -->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">@yield('page-title', 'Dashboard')</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    @yield('page-actions')
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}" alt="Logo Kabupaten OKU Timur" class="me-3" style="height: 50px;">
+                    <h1 class="h2 mb-0">@yield('page-title', 'Dashboard')</h1>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="me-3 text-end">
+                        <p class="mb-0 fw-bold">Selamat Datang, Admin Desa</p>
+                        <small class="text-muted">{{ Auth::user()->name }} @if(Auth::user()->desa) - {{ Auth::user()->desa->nama_desa }} @endif</small>
+                    </div>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        @yield('page-actions')
+                    </div>
                 </div>
             </div>
             

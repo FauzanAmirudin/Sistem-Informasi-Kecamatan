@@ -1,25 +1,8 @@
 @extends('layouts.admin-desa')
 
-@section('title', 'Reset Password')
+@section('page-title', 'Reset Password')
 
-@section('content-header')
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Reset Password</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('admin-desa.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin-desa.profile.edit') }}">Profil</a></li>
-                    <li class="breadcrumb-item active">Reset Password</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@section('content')
+@section('admin-content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
