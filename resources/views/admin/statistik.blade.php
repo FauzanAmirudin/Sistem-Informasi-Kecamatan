@@ -69,14 +69,14 @@
 
 @section('page-actions')
 <div class="d-flex gap-2">
-    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">
+    <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-outline-secondary">
         <i class="fas fa-arrow-left me-1"></i>
-        Kembali
+        <span class="d-none d-md-inline">Kembali</span>
     </a>
     <div class="dropdown">
-        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+        <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
             <i class="fas fa-download me-1"></i>
-            Export Data
+            <span class="d-none d-md-inline">Export Data</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-1">
             <li><h6 class="dropdown-header">Format Excel</h6></li>
@@ -106,20 +106,20 @@
 @endsection
 
 @section('admin-content')
-<!-- Ringkasan Statistik -->
-<div class="row">
+<!-- Ringkasan Statistik Kecamatan -->
+<div class="row mb-4 g-3">
     <div class="col-12">
         <div class="card shadow-sm overflow-hidden">
-            <div class="card-header">
-                <h5 class="card-title">
-                    <i class="fas fa-chart-pie me-2 text-primary"></i>
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
+                    <i class="fas fa-chart-pie me-1 text-primary"></i>
                     Ringkasan Statistik Kecamatan
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="row g-2">
                     @foreach($statistikPerDesa as $desa)
-                    <div class="col-md-4 col-lg-3 col-sm-6">
+                    <div class="col-6 col-md-4 col-lg-3">
                         <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden transition-all hover-shadow">
                             <div class="card-header bg-{{ $desa['status_update'] }} text-success py-1">
                                 <h6 class="mb-0 fw-bold small">{{ $desa['nama_desa'] }}</h6>
@@ -162,16 +162,20 @@
 </div>
 
 <!-- Grafik Perbandingan Antar Desa -->
-<div class="row">
+<div class="row mb-4 g-3">
     <div class="col-12">
         <div class="card shadow-sm overflow-hidden">
-            <div class="card-header">
-                <h5 class="card-title">
-                    <i class="fas fa-chart-bar me-2 text-success"></i>
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
+                    <i class="fas fa-chart-bar me-1 text-success"></i>
                     Perbandingan Antar Desa
                 </h5>
+                <button class="btn btn-sm btn-outline-primary" id="toggleChartView">
+                    <i class="fas fa-exchange-alt me-1"></i>
+                    <span class="d-none d-md-inline">Ubah Tampilan</span>
+                </button>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:50vh; width:100%">
                     <canvas id="perbandinganDesaChart"></canvas>
                 </div>
@@ -181,17 +185,17 @@
 </div>
 
 <!-- Chart Penduduk & Aset -->
-<div class="row">
+<div class="row g-3">
     <!-- Chart Klasifikasi Usia -->
     <div class="col-md-6 mb-3 mb-md-0">
         <div class="card shadow-sm h-100">
-            <div class="card-header">
-                <h5 class="card-title">
-                    <i class="fas fa-users me-2 text-warning"></i>
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
+                    <i class="fas fa-users me-1 text-warning"></i>
                     Klasifikasi Usia Penduduk
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:40vh; width:100%">
                     <canvas id="klasifikasiUsiaChart"></canvas>
                 </div>
@@ -202,13 +206,13 @@
     <!-- Chart Pekerjaan -->
     <div class="col-md-6">
         <div class="card shadow-sm h-100">
-            <div class="card-header">
-                <h5 class="card-title">
-                    <i class="fas fa-briefcase me-2 text-info"></i>
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
+                    <i class="fas fa-briefcase me-1 text-info"></i>
                     Top 5 Pekerjaan Penduduk
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:40vh; width:100%">
                     <canvas id="pekerjaanChart"></canvas>
                 </div>
@@ -283,42 +287,46 @@
 </div>
 
 <!-- Tabel Detail Statistik -->
-<div class="row">
+<div class="row mb-4 g-3">
     <div class="col-12">
         <div class="card shadow-sm">
-            <div class="card-header">
-                <h5 class="card-title">
-                    <i class="fas fa-table me-2 text-secondary"></i>
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
+                    <i class="fas fa-table me-1 text-secondary"></i>
                     Detail Statistik Per Desa
                 </h5>
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" class="form-control" id="searchTable" placeholder="Cari desa...">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover mb-0">
+                    <table class="table table-hover table-sm mb-0">
                         <thead class="bg-light">
                             <tr>
                                 <th class="py-2 px-3 border-0">Desa</th>
                                 <th class="py-2 px-3 border-0 text-center">Total Penduduk</th>
-                                <th class="py-2 px-3 border-0 text-center">Laki-laki</th>
-                                <th class="py-2 px-3 border-0 text-center">Perempuan</th>
-                                <th class="py-2 px-3 border-0 text-center">Perangkat Desa</th>
-                                <th class="py-2 px-3 border-0 text-center">Jumlah Aset</th>
-                                <th class="py-2 px-3 border-0 text-end">Nilai Aset (Rp)</th>
+                                <th class="py-2 px-3 border-0 text-center d-none d-md-table-cell">Laki-laki</th>
+                                <th class="py-2 px-3 border-0 text-center d-none d-md-table-cell">Perempuan</th>
+                                <th class="py-2 px-3 border-0 text-center d-none d-md-table-cell">Perangkat Desa</th>
+                                <th class="py-2 px-3 border-0 text-center d-none d-md-table-cell">Jumlah Aset</th>
+                                <th class="py-2 px-3 border-0 text-end d-none d-md-table-cell">Nilai Aset (Rp)</th>
                                 <th class="py-2 px-3 border-0 text-center">Status Update</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($statistikPerDesa as $desa)
                             <tr class="transition-all">
-                                <td class="py-2 px-3 fw-bold">{{ $desa['nama_desa'] }}</td>
-                                <td class="py-2 px-3 text-center">{{ number_format($desa['total_penduduk']) }}</td>
-                                <td class="py-2 px-3 text-center"><i class="fas fa-male text-primary"></i> {{ number_format($desa['penduduk_pria']) }}</td>
-                                <td class="py-2 px-3 text-center"><i class="fas fa-female text-danger"></i> {{ number_format($desa['penduduk_wanita']) }}</td>
-                                <td class="py-2 px-3 text-center">{{ number_format($desa['total_perangkat']) }}</td>
-                                <td class="py-2 px-3 text-center">{{ number_format($desa['total_aset']) }}</td>
-                                <td class="py-2 px-3 text-end fw-bold">{{ number_format($desa['nilai_aset'], 0, ',', '.') }}</td>
+                                <td class="py-2 px-3 fw-bold small">{{ $desa['nama_desa'] }}</td>
+                                <td class="py-2 px-3 text-center small">{{ number_format($desa['total_penduduk']) }}</td>
+                                <td class="py-2 px-3 text-center small d-none d-md-table-cell"><i class="fas fa-male text-primary"></i> {{ number_format($desa['penduduk_pria']) }}</td>
+                                <td class="py-2 px-3 text-center small d-none d-md-table-cell"><i class="fas fa-female text-danger"></i> {{ number_format($desa['penduduk_wanita']) }}</td>
+                                <td class="py-2 px-3 text-center small d-none d-md-table-cell">{{ number_format($desa['total_perangkat']) }}</td>
+                                <td class="py-2 px-3 text-center small d-none d-md-table-cell">{{ number_format($desa['total_aset']) }}</td>
+                                <td class="py-2 px-3 text-end fw-bold small d-none d-md-table-cell">{{ number_format($desa['nilai_aset'], 0, ',', '.') }}</td>
                                 <td class="py-2 px-3 text-center">
-                                    <span class="badge rounded-pill bg-{{ $desa['status_update'] }}">
+                                    <span class="badge rounded-pill bg-{{ $desa['status_update'] }} small">
                                         {{ $desa['status_update'] == 'hijau' ? 'Terbaru' : ($desa['status_update'] == 'kuning' ? 'Perlu Update' : 'Belum Update') }}
                                     </span>
                                 </td>

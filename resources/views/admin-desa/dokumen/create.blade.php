@@ -1,4 +1,4 @@
-@extends('layouts.admin-desa')
+@extends('layouts.admin')
 
 @section('page-title', 'Upload Dokumen Baru')
 

@@ -16,14 +16,14 @@
         <!-- Sidebar -->
         <nav class="col-md-3 col-lg-2 d-md-block bg-gradient-primary sidebar collapse">
             <div class="position-sticky pt-3">
-                {{-- <!-- User Info -->
+                <!-- User Info -->
                 <div class="text-center mb-4 px-3">
                     <div class="bg-white bg-opacity-10 rounded-3 p-3 mb-3">
                         <i class="fas fa-user-circle display-6 text-white mb-2"></i>
                         <h6 class="text-white fw-bold mb-1">Admin Kecamatan</h6>
                         <small class="text-white-50">{{ Auth::user()->name }}</small>
                     </div>
-                </div> --}}
+                </div>
                 
                 <!-- Navigation Menu -->
                 <ul class="nav flex-column px-2">
@@ -162,7 +162,7 @@
         </nav>
 
         <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-left: 16.666667%;">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-3 px-md-4" style="margin-left: 16.666667%;">
             <!-- Header with Logo and Welcome Message -->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <div class="d-flex align-items-center">

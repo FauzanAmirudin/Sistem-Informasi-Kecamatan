@@ -4,23 +4,23 @@
 
 @section('page-actions')
 <div class="btn-group" role="group">
-    <button type="button" class="btn btn-outline-primary" onclick="refreshMap()">
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="refreshMap()">
         <i class="fas fa-sync-alt me-1"></i>
-        Refresh
+        <span class="d-none d-md-inline">Refresh</span>
     </button>
-    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">
+    <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-outline-secondary">
         <i class="fas fa-arrow-left me-1"></i>
-        Kembali
+        <span class="d-none d-md-inline">Kembali</span>
     </a>
 </div>
 @endsection
 
 @section('admin-content')
 <!-- Status Summary -->
-<div class="row mb-4">
-    <div class="col-md-4">
-        <div class="card bg-success text-white shadow-sm">
-            <div class="card-body">
+<div class="row mb-4 g-2">
+    <div class="col-md-4 col-sm-6 col-12">
+        <div class="card bg-success text-white shadow-sm h-100">
+            <div class="card-body p-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="h4 mb-0 fw-bold" id="countHijau">0</div>
@@ -32,9 +32,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card bg-warning text-white shadow-sm">
-            <div class="card-body">
+    <div class="col-md-4 col-sm-6 col-12">
+        <div class="card bg-warning text-white shadow-sm h-100">
+            <div class="card-body p-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="h4 mb-0 fw-bold" id="countKuning">0</div>
@@ -46,9 +46,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card bg-danger text-white shadow-sm">
-            <div class="card-body">
+    <div class="col-md-4 col-sm-6 col-12 mx-auto">
+        <div class="card bg-danger text-white shadow-sm h-100">
+            <div class="card-body p-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="h4 mb-0 fw-bold" id="countMerah">0</div>
@@ -63,39 +63,39 @@
 </div>
 
 <!-- Map dan Daftar Desa -->
-<div class="row">
+<div class="row g-3">
     <!-- Peta Interaktif -->
     <div class="col-lg-8 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-map-marked-alt me-2 text-primary"></i>
                     Peta Sebaran Desa
                 </h5>
                 <div class="btn-group btn-group-sm" role="group">
                     <input type="radio" class="btn-check" name="mapView" id="satellite" checked>
-                    <label class="btn btn-outline-primary" for="satellite">Satelit</label>
+                    <label class="btn btn-outline-primary btn-sm" for="satellite">Satelit</label>
                     
                     <input type="radio" class="btn-check" name="mapView" id="street">
-                    <label class="btn btn-outline-primary" for="street">Jalan</label>
+                    <label class="btn btn-outline-primary btn-sm" for="street">Jalan</label>
                 </div>
             </div>
             <div class="card-body p-0">
-                <div id="map" style="height: 500px; width: 100%;"></div>
+                <div id="map" style="height: 450px; width: 100%;"></div>
             </div>
-            <div class="card-footer bg-light">
+            <div class="card-footer bg-light py-2">
                 <div class="row text-center">
                     <div class="col-4">
-                        <i class="fas fa-circle text-success me-2"></i>
-                        <small>Update Terbaru</small>
+                        <i class="fas fa-circle text-success me-1"></i>
+                        <small class="d-inline d-md-inline">Update Terbaru</small>
                     </div>
                     <div class="col-4">
-                        <i class="fas fa-circle text-warning me-2"></i>
-                        <small>Perlu Update</small>
+                        <i class="fas fa-circle text-warning me-1"></i>
+                        <small class="d-inline d-md-inline">Perlu Update</small>
                     </div>
                     <div class="col-4">
-                        <i class="fas fa-circle text-danger me-2"></i>
-                        <small>Butuh Perhatian</small>
+                        <i class="fas fa-circle text-danger me-1"></i>
+                        <small class="d-inline d-md-inline">Butuh Perhatian</small>
                     </div>
                 </div>
             </div>
@@ -104,33 +104,33 @@
 
     <!-- Daftar Desa -->
     <div class="col-lg-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-list me-2 text-secondary"></i>
                     Daftar Desa
                 </h5>
                 <span class="badge bg-primary">{{ $desas->count() }} Desa</span>
             </div>
-            <div class="card-body p-0" style="max-height: 500px; overflow-y: auto;">
+            <div class="card-body p-0" style="max-height: 450px; overflow-y: auto;">
                 <div class="list-group list-group-flush">
                     @foreach($desas as $desa)
-                    <div class="list-group-item list-group-item-action desa-item" 
+                    <div class="list-group-item list-group-item-action desa-item py-2" 
                          data-lat="{{ $desa->latitude }}" 
                          data-lng="{{ $desa->longitude }}"
                          data-status="{{ $desa->status_update }}"
                          style="cursor: pointer;">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="flex-grow-1">
-                                <h6 class="mb-1 fw-bold">
-                                    <i class="fas fa-circle status-{{ $desa->status_update }} me-2"></i>
+                                <h6 class="mb-1 fw-bold small">
+                                    <i class="fas fa-circle status-{{ $desa->status_update }} me-1"></i>
                                     {{ $desa->nama_desa }}
                                 </h6>
                                 <p class="mb-1 text-muted small">
                                     <i class="fas fa-user me-1"></i>
                                     {{ $desa->kepala_desa }}
                                 </p>
-                                <div class="row">
+                                <div class="row g-1">
                                     <div class="col-6">
                                         <small class="text-muted">
                                             <i class="fas fa-users me-1"></i>
@@ -163,19 +163,19 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin.desa.show', $desa) }}">
-                                            <i class="fas fa-eye me-2"></i>Detail
+                                        <a class="dropdown-item small" href="{{ route('admin.desa.show', $desa) }}">
+                                            <i class="fas fa-eye me-1"></i>Detail
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin.desa.edit', $desa) }}">
-                                            <i class="fas fa-edit me-2"></i>Edit
+                                        <a class="dropdown-item small" href="{{ route('admin.desa.edit', $desa) }}">
+                                            <i class="fas fa-edit me-1"></i>Edit
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin.penduduk.index', ['desa' => $desa->id]) }}">
-                                            <i class="fas fa-users me-2"></i>Data Penduduk
+                                        <a class="dropdown-item small" href="{{ route('admin.penduduk.index', ['desa' => $desa->id]) }}">
+                                            <i class="fas fa-users me-1"></i>Data Penduduk
                                         </a>
                                     </li>
                                 </ul>
@@ -191,44 +191,59 @@
 
 <!-- Reminder Desa yang Perlu Update -->
 @php
-    $desaPerluUpdate = $desas->filter(function($desa) {
+    $needAttention = $desas->filter(function($desa) {
         return in_array($desa->status_update, ['kuning', 'merah']);
     });
 @endphp
 
-@if($desaPerluUpdate->count() > 0)
-<div class="row">
-    <div class="col-12">
-        <div class="card shadow-sm border-warning">
-            <div class="card-header bg-warning text-dark">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-bell me-2"></i>
+@if($needAttention->count() > 0)
+<div class="row g-3">
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
+                    <i class="fas fa-bell me-1 text-warning"></i>
                     Reminder: Desa yang Perlu Diperhatikan
                 </h5>
+                <span class="badge bg-warning text-dark">{{ $needAttention->count() }} Desa</span>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    @foreach($desaPerluUpdate as $desa)
-                    <div class="col-md-6 col-lg-4 mb-3">
-                        <div class="alert alert-{{ $desa->status_update == 'kuning' ? 'warning' : 'danger' }} mb-0">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $desa->nama_desa }}</strong><br>
-                                    <small>
-                                        @if($desa->last_updated_at)
-                                            Terakhir update: {{ $desa->last_updated_at->diffForHumans() }}
-                                        @else
-                                            Belum pernah update
-                                        @endif
-                                    </small>
+            <div class="card-body p-3">
+                <div class="row g-2">
+                    @forelse($needAttention as $desa)
+                    <div class="col-md-6 col-lg-4 col-sm-6 mb-2">
+                        <div class="card h-100 border-{{ $desa->status_update }}">
+                            <div class="card-body p-2 p-md-3">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="card-title mb-0 fw-bold small">{{ $desa->nama_desa }}</h6>
+                                    <span class="badge bg-{{ $desa->status_update }}">{{ $desa->status_update == 'kuning' ? 'Perlu Update' : 'Butuh Perhatian' }}</span>
                                 </div>
-                                <a href="{{ route('admin.desa.edit', $desa) }}" class="btn btn-sm btn-outline-dark">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                <p class="card-text small mb-1">
+                                    <i class="fas fa-calendar-alt me-1"></i> 
+                                    @if($desa->last_updated_at)
+                                        Update terakhir: {{ $desa->last_updated_at->diffForHumans() }}
+                                    @else
+                                        Belum pernah update
+                                    @endif
+                                </p>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="{{ route('admin.desa.show', $desa) }}" class="btn btn-sm btn-outline-primary me-1 py-1 px-2">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('admin.desa.edit', $desa) }}" class="btn btn-sm btn-outline-secondary py-1 px-2">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-success mb-0 p-2 p-md-3">
+                            <i class="fas fa-check-circle me-1"></i>
+                            Semua desa sudah terupdate dengan baik!
+                        </div>
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

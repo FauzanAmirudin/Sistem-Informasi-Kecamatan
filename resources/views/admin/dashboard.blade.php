@@ -116,34 +116,34 @@
 </div>
 
 <!-- Status Update Desa & Statistik Penduduk -->
-<div class="row mb-4">
+<div class="row mb-4 g-3">
     <!-- Status Update Desa -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-signal me-2 text-primary"></i>
                     Status Update Desa
                 </h5>
                 <a href="{{ route('admin.desa.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
-                <div class="chart-container" style="position: relative; height:200px;">
+            <div class="card-body p-3">
+                <div class="chart-container" style="position: relative; height:180px;">
                     <canvas id="statusUpdateChart"></canvas>
                 </div>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span><i class="fas fa-circle text-success me-2"></i>Update Terbaru (≤7 hari)</span>
+                        <span class="small"><i class="fas fa-circle text-success me-1"></i>Update Terbaru (≤7 hari)</span>
                         <span class="badge bg-success">{{ $statusUpdate['hijau'] }} desa</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span><i class="fas fa-circle text-warning me-2"></i>Perlu Update (≤30 hari)</span>
+                        <span class="small"><i class="fas fa-circle text-warning me-1"></i>Perlu Update (≤30 hari)</span>
                         <span class="badge bg-warning">{{ $statusUpdate['kuning'] }} desa</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span><i class="fas fa-circle text-danger me-2"></i>Butuh Perhatian (>30 hari)</span>
+                        <span class="small"><i class="fas fa-circle text-danger me-1"></i>Butuh Perhatian (>30 hari)</span>
                         <span class="badge bg-danger">{{ $statusUpdate['merah'] }} desa</span>
                     </div>
                 </div>
@@ -152,28 +152,28 @@
     </div>
 
     <!-- Statistik Gender -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-venus-mars me-2 text-info"></i>
                     Statistik Gender
                 </h5>
                 <a href="{{ route('admin.penduduk.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
-                <div class="chart-container" style="position: relative; height:200px;">
+            <div class="card-body p-3">
+                <div class="chart-container" style="position: relative; height:180px;">
                     <canvas id="genderChart"></canvas>
                 </div>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span><i class="fas fa-male text-primary me-2"></i>Laki-laki</span>
+                        <span class="small"><i class="fas fa-male text-primary me-1"></i>Laki-laki</span>
                         <span class="badge bg-primary">{{ number_format($pendudukPria) }} orang</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span><i class="fas fa-female text-danger me-2"></i>Perempuan</span>
+                        <span class="small"><i class="fas fa-female text-danger me-1"></i>Perempuan</span>
                         <span class="badge bg-danger">{{ number_format($pendudukWanita) }} orang</span>
                     </div>
                 </div>
@@ -182,18 +182,18 @@
     </div>
 
     <!-- Status KTP -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-id-card me-2 text-success"></i>
                     Status KTP
                 </h5>
                 <a href="{{ route('admin.penduduk.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:200px;">
                     <canvas id="ktpChart"></canvas>
                 </div>
@@ -213,20 +213,20 @@
 </div>
 
 <!-- Statistik Nilai Aset -->
-<div class="row mb-4">
+<div class="row mb-4 g-3">
     <!-- Statistik Nilai Aset Desa -->
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-building me-2 text-warning"></i>
                     Statistik Nilai Aset Desa
                 </h5>
                 <a href="{{ route('admin.aset-desa.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:250px;">
                     <canvas id="asetDesaChart"></canvas>
                 </div>
@@ -235,18 +235,18 @@
     </div>
 
     <!-- Statistik Nilai Aset Warga -->
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-home me-2 text-danger"></i>
                     Statistik Nilai Aset Warga
                 </h5>
                 <a href="{{ route('admin.aset-tanah-warga.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:250px;">
                     <canvas id="asetWargaChart"></canvas>
                 </div>
@@ -256,20 +256,20 @@
 </div>
 
 <!-- Klasifikasi Usia & Top Pekerjaan -->
-<div class="row mb-4">
+<div class="row mb-4 g-3">
     <!-- Klasifikasi Usia -->
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-users me-2 text-warning"></i>
                     Klasifikasi Usia Penduduk
                 </h5>
                 <a href="{{ route('admin.penduduk.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:300px;">
                     <canvas id="usiaChart"></canvas>
                 </div>
@@ -278,18 +278,18 @@
     </div>
 
     <!-- Top Pekerjaan -->
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-3">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-0 fs-6">
                     <i class="fas fa-briefcase me-2 text-secondary"></i>
                     Top 10 Pekerjaan Penduduk
                 </h5>
                 <a href="{{ route('admin.penduduk.index') }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i>Lihat Detail
+                    <i class="fas fa-eye me-1"></i><span class="d-none d-md-inline">Lihat Detail</span>
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -327,11 +327,11 @@
 </div>
 
 <!-- Grafik Perkembangan Bulanan -->
-<div class="row mb-4">
+<div class="row mb-4 g-3">
     <div class="col-12">
         <div class="card shadow-sm h-100">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
+            <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center p-3">
+                <h5 class="card-title mb-2 mb-sm-0 fs-6">
                     <i class="fas fa-chart-line me-2 text-primary"></i>
                     Grafik Perkembangan Bulanan
                 </h5>
@@ -343,7 +343,7 @@
                     </select>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="chart-container" style="position: relative; height:250px;">
                     <canvas id="perkembanganChart"></canvas>
                 </div>
@@ -353,90 +353,90 @@
 </div>
 
 <!-- Quick Actions -->
-<div class="row mb-4">
-    <div class="col-12 mb-3">
-        <h5 class="text-muted fw-bold"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+<div class="row mb-4 g-3">
+    <div class="col-12 mb-2">
+        <h5 class="text-muted fs-6 fw-bold"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
     </div>
     
     <!-- Tambah Desa -->
-    <div class="col-md-4 col-lg-2 col-sm-6 mb-3">
+    <div class="col-6 col-md-4 col-lg-2 mb-2">
         <a href="{{ route('admin.desa.create') }}" class="text-decoration-none">
-            <div class="card shadow-sm border-0 text-center py-3 px-2 h-100">
-                <div class="card-body">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+            <div class="card shadow-sm border-0 text-center py-2 px-1 h-100">
+                <div class="card-body p-2">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 50px; height: 50px;">
                         <i class="fas fa-plus-circle text-primary fa-2x"></i>
                     </div>
-                    <h6 class="card-title mb-0">Tambah Desa</h6>
+                    <h6 class="card-title mb-0 small">Tambah Desa</h6>
                 </div>
             </div>
         </a>
     </div>
     
     <!-- Tambah Penduduk -->
-    <div class="col-md-4 col-lg-2 col-sm-6 mb-3">
+    <div class="col-6 col-md-4 col-lg-2 mb-2">
         <a href="{{ route('admin.penduduk.create') }}" class="text-decoration-none">
-            <div class="card shadow-sm border-0 text-center py-3 px-2 h-100">
-                <div class="card-body">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+            <div class="card shadow-sm border-0 text-center py-2 px-1 h-100">
+                <div class="card-body p-2">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 50px; height: 50px;">
                         <i class="fas fa-user-plus text-success fa-2x"></i>
                     </div>
-                    <h6 class="card-title mb-0">Tambah Penduduk</h6>
+                    <h6 class="card-title mb-0 small">Tambah Penduduk</h6>
                 </div>
             </div>
         </a>
     </div>
     
     <!-- Tambah Perangkat -->
-    <div class="col-md-4 col-lg-2 col-sm-6 mb-3">
+    <div class="col-6 col-md-4 col-lg-2 mb-2">
         <a href="{{ route('admin.perangkat-desa.create') }}" class="text-decoration-none">
-            <div class="card shadow-sm border-0 text-center py-3 px-2 h-100">
-                <div class="card-body">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+            <div class="card shadow-sm border-0 text-center py-2 px-1 h-100">
+                <div class="card-body p-2">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 50px; height: 50px;">
                         <i class="fas fa-user-tie text-info fa-2x"></i>
                     </div>
-                    <h6 class="card-title mb-0">Tambah Perangkat</h6>
+                    <h6 class="card-title mb-0 small">Tambah Perangkat</h6>
                 </div>
             </div>
         </a>
     </div>
     
     <!-- Tambah Aset Desa -->
-    <div class="col-md-4 col-lg-2 col-sm-6 mb-3">
+    <div class="col-6 col-md-4 col-lg-2 mb-2">
         <a href="{{ route('admin.aset-desa.create') }}" class="text-decoration-none">
-            <div class="card shadow-sm border-0 text-center py-3 px-2 h-100">
-                <div class="card-body">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+            <div class="card shadow-sm border-0 text-center py-2 px-1 h-100">
+                <div class="card-body p-2">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 50px; height: 50px;">
                         <i class="fas fa-building text-warning fa-2x"></i>
                     </div>
-                    <h6 class="card-title mb-0">Tambah Aset Desa</h6>
+                    <h6 class="card-title mb-0 small">Tambah Aset Desa</h6>
                 </div>
             </div>
         </a>
     </div>
     
     <!-- Tambah User -->
-    <div class="col-md-4 col-lg-2 col-sm-6 mb-3">
+    <div class="col-6 col-md-4 col-lg-2 mb-2">
         <a href="{{ route('admin.users.create') }}" class="text-decoration-none">
-            <div class="card shadow-sm border-0 text-center py-3 px-2 h-100">
-                <div class="card-body">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+            <div class="card shadow-sm border-0 text-center py-2 px-1 h-100">
+                <div class="card-body p-2">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 50px; height: 50px;">
                         <i class="fas fa-user-cog text-secondary fa-2x"></i>
                     </div>
-                    <h6 class="card-title mb-0">Tambah User</h6>
+                    <h6 class="card-title mb-0 small">Tambah User</h6>
                 </div>
             </div>
         </a>
     </div>
     
     <!-- Upload Dokumen -->
-    <div class="col-md-4 col-lg-2 col-sm-6 mb-3">
+    <div class="col-6 col-md-4 col-lg-2 mb-2">
         <a href="{{ route('admin.dokumen.create') }}" class="text-decoration-none">
-            <div class="card shadow-sm border-0 text-center py-3 px-2 h-100">
-                <div class="card-body">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+            <div class="card shadow-sm border-0 text-center py-2 px-1 h-100">
+                <div class="card-body p-2">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 50px; height: 50px;">
                         <i class="fas fa-file-upload text-dark fa-2x"></i>
                     </div>
-                    <h6 class="card-title mb-0">Upload Dokumen</h6>
+                    <h6 class="card-title mb-0 small">Upload Dokumen</h6>
                 </div>
             </div>
         </a>
