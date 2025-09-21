@@ -5,12 +5,18 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\PerangkatDesa;
 use App\Models\Desa;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class PerangkatDesaSeeder extends Seeder
 {
     public function run(): void
     {
+        $user = User::first();
+        if ($user) {
+            Auth::login($user); // 🔑 supaya activity() tahu siapa user_id
+        }
         // Ambil semua desa
         $desas = Desa::all();
         
@@ -86,7 +92,7 @@ class PerangkatDesaSeeder extends Seeder
                     'jobdesk' => $this->generateJobdesk($namaJabatan),
                     'status' => 'aktif',
                     'is_current' => true,
-                    'updated_by' => 1, // ID admin kecamatan
+                    'updated_by' => $user?->id ?? 1, // fallback ke ID 1
                 ]);
             }
         }

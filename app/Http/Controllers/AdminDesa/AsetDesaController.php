@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Exports\AsetDesaPdfExport;
+use App\Exports\AsetDesaExport;
+use App\Exports\AsetDesaTemplateExport;
+use App\Imports\AsetDesaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AsetDesaController extends Controller
 {
@@ -268,6 +272,56 @@ class AsetDesaController extends Controller
         }
         /** @var \App\Exports\AsetDesaPdfExport $export */
         $export = new AsetDesaPdfExport($asetDesas, $desa);
-        return $export->download('aset-desa-' . $desa->nama_desa . '.pdf');
+        $filename = $desa ? 'aset-desa-' . $desa->nama_desa . '.pdf' : 'aset-desa-' . date('Y-m-d') . '.pdf';
+        return $export->download($filename);
+    }
+
+    /**
+     * Export data aset desa ke Excel
+     */
+    public function exportExcel(Request $request)
+    {
+        $desaId = Auth::user()->desa_id;
+        
+        $filters = [
+            'desa_id' => $desaId,
+            'kategori_aset' => $request->kategori_aset,
+            'kondisi' => $request->kondisi,
+            'search' => $request->search,
+        ];
+
+        $filename = 'aset-desa-' . Auth::user()->desa->nama_desa . '-' . date('Y-m-d-H-i-s') . '.xlsx';
+        
+        return Excel::download(new AsetDesaExport($filters), $filename);
+    }
+
+    /**
+     * Download template import aset desa
+     */
+    public function downloadTemplate()
+    {
+        $filename = 'template-aset-desa-' . date('Y-m-d') . '.xlsx';
+        
+        return Excel::download(new AsetDesaTemplateExport(), $filename);
+    }
+
+    /**
+     * Import data aset desa dari Excel
+     */
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls|max:10240', // 10MB max
+        ]);
+
+        try {
+            Excel::import(new AsetDesaImport(), $request->file('file'));
+            
+            return redirect()->route('admin-desa.aset-desa.index')
+                ->with('success', 'Data aset desa berhasil diimpor.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin-desa.aset-desa.index')
+                ->with('error', 'Gagal mengimpor data: ' . $e->getMessage());
+        }
     }
 }

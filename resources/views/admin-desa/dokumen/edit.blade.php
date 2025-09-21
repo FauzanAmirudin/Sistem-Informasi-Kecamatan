@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin-desa')
 
 @section('page-title', 'Edit Dokumen')
 

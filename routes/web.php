@@ -30,8 +30,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('/statistik', [AdminDashboardController::class, 'statistik'])->name('statistik');
     Route::get('/statistik/export/excel', [AdminDashboardController::class, 'exportExcel'])->name('statistik.export.excel');
     Route::get('/statistik/export/pdf', [AdminDashboardController::class, 'exportPdf'])->name('statistik.export.pdf');
-    // Tambahkan di dalam group admin routes
-    Route::get('penduduk/download-template', [AdminPendudukController::class, 'downloadTemplate'])->name('penduduk.download-template');
     
     // Data Desa
     Route::resource('desa', AdminDesaController::class);
@@ -48,10 +46,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('penduduk', AdminPendudukController::class);
     Route::get('penduduk/export/excel', [AdminPendudukController::class, 'exportExcel'])->name('penduduk.export.excel');
     Route::get('penduduk/export/pdf', [AdminPendudukController::class, 'exportPdf'])->name('penduduk.export.pdf');
+    Route::get('penduduk/download-template', [AdminPendudukController::class, 'downloadTemplate'])->name('penduduk.download-template');
+    Route::get('penduduk/download-template-pdf', [AdminPendudukController::class, 'downloadTemplatePdf'])->name('penduduk.download-template-pdf');
     Route::post('penduduk/import', [AdminPendudukController::class, 'import'])->name('penduduk.import');
     
     // Aset Desa
     Route::get('aset-desa/export/pdf', [AdminAsetDesaController::class, 'exportPdf'])->name('aset-desa.export.pdf');
+    Route::get('aset-desa/export/excel', [AdminAsetDesaController::class, 'exportExcel'])->name('aset-desa.export.excel');
+    Route::get('aset-desa/download-template', [AdminAsetDesaController::class, 'downloadTemplate'])->name('aset-desa.download-template');
+    Route::post('aset-desa/import', [AdminAsetDesaController::class, 'importExcel'])->name('aset-desa.import');
     Route::resource('aset-desa', AdminAsetDesaController::class);
     Route::get('aset-desa/{aset}/riwayat', [AdminAsetDesaController::class, 'riwayat'])->name('aset-desa.riwayat');
     
@@ -105,6 +108,7 @@ Route::prefix('admin-desa')->name('admin-desa.')->middleware(['auth', 'admin_des
     Route::get('penduduk/export-excel', '\App\Http\Controllers\AdminDesa\PendudukController@exportExcel')->name('penduduk.export-excel');
     Route::get('penduduk/export/pdf', '\App\Http\Controllers\AdminDesa\PendudukController@exportPdf')->name('penduduk.export.pdf');
     Route::get('penduduk/template', '\App\Http\Controllers\AdminDesa\PendudukController@downloadTemplate')->name('penduduk.template');
+    Route::get('penduduk/download-template-pdf', '\App\Http\Controllers\AdminDesa\PendudukController@downloadTemplatePdf')->name('admin-desa.penduduk.download-template-pdf');
     Route::post('penduduk/import', '\App\Http\Controllers\AdminDesa\PendudukController@import')->name('penduduk.import');
     
     // Perangkat Desa
@@ -115,6 +119,9 @@ Route::prefix('admin-desa')->name('admin-desa.')->middleware(['auth', 'admin_des
     // Aset Desa
     Route::resource('aset-desa', '\App\Http\Controllers\AdminDesa\AsetDesaController');
     Route::get('aset-desa/export/pdf', '\App\Http\Controllers\AdminDesa\AsetDesaController@exportPdf')->name('aset-desa.export.pdf');
+    Route::get('aset-desa/export/excel', '\App\Http\Controllers\AdminDesa\AsetDesaController@exportExcel')->name('aset-desa.export.excel');
+    Route::get('aset-desa/download-template', '\App\Http\Controllers\AdminDesa\AsetDesaController@downloadTemplate')->name('aset-desa.download-template');
+    Route::post('aset-desa/import', '\App\Http\Controllers\AdminDesa\AsetDesaController@importExcel')->name('aset-desa.import');
     Route::get('aset-desa/{aset}/riwayat', '\App\Http\Controllers\AdminDesa\AsetDesaController@riwayat')->name('aset-desa.riwayat');
     
     // Aset Tanah Warga
@@ -141,6 +148,26 @@ Route::prefix('admin-desa')->name('admin-desa.')->middleware(['auth', 'admin_des
     Route::put('/profile/reset-password', [App\Http\Controllers\AdminDesa\ProfileController::class, 'resetPassword']);
     Route::post('/profile/remove-profile-photo', [App\Http\Controllers\AdminDesa\ProfileController::class, 'removeProfilePhoto'])->name('profile.remove-profile-photo');
 }); 
+
+
+// Route sementara untuk test download template PDF tanpa authentication
+Route::get('/download-template-pdf-test', function (\Illuminate\Http\Request $request) {
+    try {
+        $request->validate([
+            'jumlah_baris' => 'required|integer|min:10|max:200',
+        ]);
+
+        $jumlahBaris = $request->jumlah_baris;
+        
+        $exporter = new \App\Exports\PendudukTemplatePdfExport($jumlahBaris);
+        return $exporter->download();
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Gagal download template PDF: ' . $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ], 500);
+    }
+});
 
 // Redirect after login
 Route::get('/dashboard', function () {

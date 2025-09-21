@@ -11,13 +11,24 @@ use Carbon\Carbon;
 
 class PendudukImport implements ToModel, WithHeadingRow, WithValidation
 {
+    protected $desaId;
+
+    public function __construct($desaId = null)
+    {
+        $this->desaId = $desaId;
+    }
+
     public function model(array $row)
     {
-        // Cari desa berdasarkan nama
-        $desa = Desa::where('nama_desa', $row['desa'])->first();
+        // Jika desaId diberikan, gunakan itu. Jika tidak, cari berdasarkan nama
+        if ($this->desaId) {
+            $desa = Desa::find($this->desaId);
+        } else {
+            $desa = Desa::where('nama_desa', $row['desa'])->first();
+        }
         
         if (!$desa) {
-            throw new \Exception("Desa '{$row['desa']}' tidak ditemukan");
+            throw new \Exception("Desa tidak ditemukan");
         }
 
         // Convert jenis kelamin

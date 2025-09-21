@@ -22,10 +22,24 @@
             </a></li>
         </ul>
     </div>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#importModal">
-        <i class="fas fa-upload me-1"></i>
-        Import
-    </button>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fas fa-upload me-1"></i>
+            Import
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('admin.penduduk.download-template') }}">
+                <i class="fas fa-file-excel me-2"></i>Download Template Excel
+            </a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templatePdfModal">
+                <i class="fas fa-file-pdf me-2"></i>Download Template PDF
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#importModal">
+                <i class="fas fa-upload me-2"></i>Import Data
+            </a></li>
+        </ul>
+    </div>
 </div>
 @endsection
 
@@ -345,4 +359,43 @@ function confirmDelete(url, message) {
     });
 }
 </script>
+
+<!-- Modal Template PDF -->
+<div class="modal fade" id="templatePdfModal" tabindex="-1" aria-labelledby="templatePdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="templatePdfModalLabel">Download Template PDF</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.penduduk.download-template-pdf') }}" method="GET">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="jumlah_baris" class="form-label">Jumlah Baris Data</label>
+                        <input type="number" class="form-control" id="jumlah_baris" name="jumlah_baris" 
+                               value="50" min="10" max="200" required>
+                        <div class="form-text">
+                            Masukkan jumlah baris data yang diinginkan (10-200 baris)
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-info-circle me-2"></i>Informasi Template PDF:</h6>
+                        <ul class="mb-0">
+                            <li>Template akan berisi form kosong untuk pengisian data penduduk</li>
+                            <li>Dapat diisi secara manual dan kemudian di-scan untuk input data</li>
+                            <li>Format kolom sudah disesuaikan dengan struktur database</li>
+                            <li>Termasuk petunjuk pengisian yang lengkap</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-download me-1"></i>Download Template PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endpush

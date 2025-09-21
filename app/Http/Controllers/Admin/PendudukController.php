@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PendudukExport;
 use App\Exports\PendudukTemplateExport;
+use App\Exports\PendudukTemplatePdfExport;
 use App\Imports\PendudukImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -237,48 +238,29 @@ class PendudukController extends Controller
      * Download template Excel untuk import data penduduk
      */
     public function downloadTemplate()
-{
-    $filename = 'template-import-penduduk.xlsx';
-    $filePath = public_path('templates/' . $filename);
-    
-    if (!file_exists($filePath)) {
-        // Create template if not exists
-        $this->createTemplate();
-    }
-    
-    return response()->download($filePath);
-}
-
-private function createTemplate()
-{
-    // Buat direktori jika belum ada
-    $templateDir = public_path('templates');
-    if (!file_exists($templateDir)) {
-        mkdir($templateDir, 0755, true);
+    {
+        $filename = 'template-import-penduduk-' . date('Y-m-d') . '.xlsx';
+        return Excel::download(new PendudukTemplateExport(), $filename);
     }
 
-    // Data template
-    $templateData = [
-        ['NIK', 'Nama Lengkap', 'Jenis Kelamin', 'Tempat Lahir', 'Tanggal Lahir', 'Agama', 'Status Perkawinan', 'Pekerjaan', 'Pendidikan Terakhir', 'Alamat', 'RT', 'RW', 'Desa', 'Memiliki KTP', 'Tanggal Rekam KTP'],
-        ['1234567890123456', 'Contoh Nama', 'Laki-laki', 'Jakarta', '01/01/1990', 'Islam', 'Kawin', 'Petani', 'SMA', 'Jl. Contoh No. 1', '001', '001', 'Belitang Jaya', 'Ya', '01/01/2020'],
-        ['1234567890123457', 'Contoh Nama 2', 'Perempuan', 'Bandung', '15/06/1985', 'Kristen', 'Belum Kawin', 'Guru', 'S1', 'Jl. Contoh No. 2', '002', '001', 'Sumber Makmur', 'Tidak', '-'],
-    ];
+    /**
+     * Download template PDF untuk data penduduk
+     */
+    public function downloadTemplatePdf(Request $request)
+    {
+        try {
+            $request->validate([
+                'jumlah_baris' => 'required|integer|min:10|max:200',
+            ]);
 
-    // Buat file Excel sederhana (bisa menggunakan library lain jika diperlukan)
-    $filename = public_path('templates/template-import-penduduk.xlsx');
-    
-    // Untuk sementara, buat file CSV yang bisa dibuka di Excel
-    $csvFilename = public_path('templates/template-import-penduduk.csv');
-    $file = fopen($csvFilename, 'w');
-    
-    foreach ($templateData as $row) {
-        fputcsv($file, $row);
+            $jumlahBaris = $request->jumlah_baris;
+            
+            $exporter = new \App\Exports\PendudukTemplatePdfExport($jumlahBaris);
+            return $exporter->download();
+        } catch (\Exception $e) {
+            return redirect()->route('admin.penduduk.index')
+                ->with('error', 'Gagal download template PDF: ' . $e->getMessage());
+        }
     }
-    
-    fclose($file);
-    
-    // Copy CSV ke XLSX (untuk kompatibilitas)
-    copy($csvFilename, $filename);
-}
     
 }

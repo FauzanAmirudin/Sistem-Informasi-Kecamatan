@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PendudukExport;
+use App\Exports\PendudukTemplatePdfExport;
 use App\Imports\PendudukImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -18,7 +19,7 @@ class PendudukController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -89,7 +90,7 @@ class PendudukController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -102,7 +103,7 @@ class PendudukController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -143,7 +144,7 @@ class PendudukController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Penduduk  $penduduk
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Penduduk $penduduk)
     {
@@ -160,7 +161,7 @@ class PendudukController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Penduduk  $penduduk
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Penduduk $penduduk)
     {
@@ -179,7 +180,7 @@ class PendudukController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Penduduk  $penduduk
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Penduduk $penduduk)
     {
@@ -222,7 +223,7 @@ class PendudukController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Penduduk  $penduduk
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Penduduk $penduduk)
     {
@@ -269,7 +270,7 @@ class PendudukController extends Controller
      * Export data penduduk ke PDF.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return \Illuminate\Http\Response
      */
     public function exportPdf(Request $request)
     {
@@ -351,5 +352,25 @@ class PendudukController extends Controller
     {
         $filename = 'template-import-penduduk.xlsx';
         return Excel::download(new \App\Exports\PendudukTemplateExport(), $filename);
+    }
+
+    /**
+     * Download template PDF untuk data penduduk
+     */
+    public function downloadTemplatePdf(Request $request)
+    {
+        try {
+            $request->validate([
+                'jumlah_baris' => 'required|integer|min:10|max:200',
+            ]);
+
+            $jumlahBaris = $request->jumlah_baris;
+            
+            $exporter = new PendudukTemplatePdfExport($jumlahBaris);
+            return $exporter->download();
+        } catch (\Exception $e) {
+            return redirect()->route('admin-desa.penduduk.index')
+                ->with('error', 'Gagal download template PDF: ' . $e->getMessage());
+        }
     }
 }

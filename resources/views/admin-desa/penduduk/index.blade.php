@@ -20,9 +20,23 @@
             </a>
         </div>
     </div>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#importModal">
-        <i class="fas fa-file-import me-1"></i> Import Excel
-    </button>
+    <div class="dropdown d-inline-block">
+        <button class="btn btn-info dropdown-toggle" type="button" id="importDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-file-import me-1"></i> Import
+        </button>
+        <div class="dropdown-menu" aria-labelledby="importDropdown">
+            <a class="dropdown-item" href="{{ route('admin-desa.penduduk.template') }}">
+                <i class="fas fa-file-excel me-1"></i> Download Template Excel
+            </a>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templatePdfModal">
+                <i class="fas fa-file-pdf me-1"></i> Download Template PDF
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#importModal">
+                <i class="fas fa-upload me-1"></i> Import Data
+            </a>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -342,6 +356,45 @@
                         </button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-upload me-1"></i> Import
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Template PDF -->
+    <div class="modal fade" id="templatePdfModal" tabindex="-1" aria-labelledby="templatePdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templatePdfModalLabel">Download Template PDF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('admin-desa.penduduk.download-template-pdf') }}" method="GET">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="jumlah_baris" class="form-label">Jumlah Baris Data</label>
+                            <input type="number" class="form-control" id="jumlah_baris" name="jumlah_baris" 
+                                   value="50" min="10" max="200" required>
+                            <div class="form-text">
+                                Masukkan jumlah baris data yang diinginkan (10-200 baris)
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-info-circle me-2"></i>Informasi Template PDF:</h6>
+                            <ul class="mb-0">
+                                <li>Template akan berisi form kosong untuk pengisian data penduduk</li>
+                                <li>Dapat diisi secara manual dan kemudian di-scan untuk input data</li>
+                                <li>Format kolom sudah disesuaikan dengan struktur database</li>
+                                <li>Termasuk petunjuk pengisian yang lengkap</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-download me-1"></i>Download Template PDF
                         </button>
                     </div>
                 </form>

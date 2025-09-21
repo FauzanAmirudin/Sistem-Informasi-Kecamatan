@@ -1,0 +1,3 @@
+NIK,"Nama Lengkap","Jenis Kelamin","Tempat Lahir","Tanggal Lahir",Agama,"Status Perkawinan",Pekerjaan,"Pendidikan Terakhir",Alamat,RT,RW,Desa,"Memiliki KTP","Tanggal Rekam KTP"
+1234567890123456,"Contoh Nama",Laki-laki,Jakarta,01/01/1990,Islam,Kawin,Petani,SMA,"Jl. Contoh No. 1",001,001,"Belitang Jaya",Ya,01/01/2020
+1234567890123457,"Contoh Nama 2",Perempuan,Bandung,15/06/1985,Kristen,"Belum Kawin",Guru,S1,"Jl. Contoh No. 2",002,001,"Sumber Makmur",Tidak,-

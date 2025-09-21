@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Exports\AsetDesaPdfExport;
+use App\Exports\AsetDesaExport;
+use App\Exports\AsetDesaTemplateExport;
+use App\Imports\AsetDesaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AsetDesaController extends Controller
 {
@@ -124,7 +128,7 @@ class AsetDesaController extends Controller
         if ($request->hasFile('bukti_kepemilikan')) {
             // Hapus file lama
             if ($asetDesa->bukti_kepemilikan) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($asetDesa->bukti_kepemilikan);
+                Storage::disk('public')->delete($asetDesa->bukti_kepemilikan);
             }
             $data['bukti_kepemilikan'] = $request->file('bukti_kepemilikan')
                 ->store('bukti-aset', 'public');
@@ -174,13 +178,80 @@ class AsetDesaController extends Controller
      */
     public function exportPdf(Request $request)
     {
-        $exporter = new AsetDesaPdfExport(
-            $request->desa_id,
-            $request->jenis_aset,
-            $request->kondisi,
-            $request->status
-        );
+        $query = AsetDesa::with('desa')->current();
+        
+        // Filter berdasarkan desa
+        if ($request->filled('desa_id')) {
+            $query->where('desa_id', $request->desa_id);
+        }
+        
+        // Filter berdasarkan kategori
+        if ($request->filled('kategori_aset')) {
+            $query->where('kategori_aset', $request->kategori_aset);
+        }
+
+        // Filter berdasarkan kondisi
+        if ($request->filled('kondisi')) {
+            $query->where('kondisi', $request->kondisi);
+        }
+
+        $asetDesas = $query->orderBy('nama_aset')->get();
+        $desa = $request->desa_id ? Desa::find($request->desa_id) : null;
+        
+        // Jika tidak ada desa yang dipilih, ambil desa dari aset pertama jika ada
+        if (!$desa && $asetDesas->count() > 0) {
+            $desa = $asetDesas->first()->desa;
+        }
+        
+        $exporter = new AsetDesaPdfExport($asetDesas, $desa);
         
         return $exporter->download();
+    }
+
+    /**
+     * Export data aset desa ke Excel
+     */
+    public function exportExcel(Request $request)
+    {
+        $filters = [
+            'desa_id' => $request->desa_id,
+            'kategori_aset' => $request->kategori_aset,
+            'kondisi' => $request->kondisi,
+            'search' => $request->search,
+        ];
+
+        $filename = 'aset-desa-' . date('Y-m-d-H-i-s') . '.xlsx';
+        
+        return Excel::download(new AsetDesaExport($filters), $filename);
+    }
+
+    /**
+     * Download template import aset desa
+     */
+    public function downloadTemplate()
+    {
+        $filename = 'template-aset-desa-' . date('Y-m-d') . '.xlsx';
+        
+        return Excel::download(new AsetDesaTemplateExport(), $filename);
+    }
+
+    /**
+     * Import data aset desa dari Excel
+     */
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls|max:10240', // 10MB max
+        ]);
+
+        try {
+            Excel::import(new AsetDesaImport(), $request->file('file'));
+            
+            return redirect()->route('admin.aset-desa.index')
+                ->with('success', 'Data aset desa berhasil diimpor.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.aset-desa.index')
+                ->with('error', 'Gagal mengimpor data: ' . $e->getMessage());
+        }
     }
 }

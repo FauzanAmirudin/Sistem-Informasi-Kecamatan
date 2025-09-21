@@ -64,7 +64,7 @@
 <body>
     <div class="header">
         <h1>LAPORAN ASET DESA</h1>
-        <h2>{{ $desa->nama_desa }}</h2>
+        <h2>{{ $desa ? $desa->nama_desa : 'Semua Desa' }}</h2>
         <p>Tanggal: {{ $tanggal }}</p>
     </div>
 

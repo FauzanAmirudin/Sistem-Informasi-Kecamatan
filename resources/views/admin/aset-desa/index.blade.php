@@ -8,6 +8,34 @@
         <i class="fas fa-plus me-1"></i>
         Tambah Aset Desa
     </a>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-download me-1"></i>
+            Export
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('admin.aset-desa.export.excel', request()->query()) }}">
+                <i class="fas fa-file-excel me-2"></i>Export Excel
+            </a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.aset-desa.export.pdf', request()->query()) }}">
+                <i class="fas fa-file-pdf me-2"></i>Export PDF
+            </a></li>
+        </ul>
+    </div>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-upload me-1"></i>
+            Import
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('admin.aset-desa.download-template') }}">
+                <i class="fas fa-download me-2"></i>Download Template
+            </a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#importModal">
+                <i class="fas fa-upload me-2"></i>Import Data
+            </a></li>
+        </ul>
+    </div>
 </div>
 @endsection
 
@@ -38,17 +66,51 @@
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Kategori</label>
-                            <select class="form-select" name="kategori">
+                            <select class="form-select" name="kategori_aset">
                                 <option value="">Semua Kategori</option>
-                                <option value="tanah" {{ request('kategori') == 'tanah' ? 'selected' : '' }}>Tanah</option>
-                                <option value="bangunan" {{ request('kategori') == 'bangunan' ? 'selected' : '' }}>Bangunan</option>
-                                <option value="inventaris" {{ request('kategori') == 'inventaris' ? 'selected' : '' }}>Inventaris</option>
+                                <option value="tanah" {{ request('kategori_aset') == 'tanah' ? 'selected' : '' }}>Tanah</option>
+                                <option value="bangunan" {{ request('kategori_aset') == 'bangunan' ? 'selected' : '' }}>Bangunan</option>
+                                <option value="inventaris" {{ request('kategori_aset') == 'inventaris' ? 'selected' : '' }}>Inventaris</option>
                             </select>
                         </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary w-100">
+                        <div class="col-md-3">
+                            <label class="form-label">Kondisi</label>
+                            <select class="form-select" name="kondisi">
+                                <option value="">Semua Kondisi</option>
+                                <option value="baik" {{ request('kondisi') == 'baik' ? 'selected' : '' }}>Baik</option>
+                                <option value="rusak_ringan" {{ request('kondisi') == 'rusak_ringan' ? 'selected' : '' }}>Rusak Ringan</option>
+                                <option value="rusak_berat" {{ request('kondisi') == 'rusak_berat' ? 'selected' : '' }}>Rusak Berat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-search me-1"></i> Cari
                             </button>
+                            <a href="{{ route('admin.aset-desa.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-undo me-1"></i> Reset Filter
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            @if(request()->hasAny(['search', 'desa_id', 'kategori_aset', 'kondisi']))
+                                <small class="text-muted">
+                                    <i class="fas fa-filter me-1"></i>
+                                    Filter aktif: 
+                                    @if(request('search'))
+                                        Pencarian "{{ request('search') }}"
+                                    @endif
+                                    @if(request('desa_id'))
+                                        | Desa: {{ $desas->where('id', request('desa_id'))->first()->nama_desa ?? 'Tidak ditemukan' }}
+                                    @endif
+                                    @if(request('kategori_aset'))
+                                        | Kategori: {{ ucfirst(request('kategori_aset')) }}
+                                    @endif
+                                    @if(request('kondisi'))
+                                        | Kondisi: {{ ucfirst(str_replace('_', ' ', request('kondisi'))) }}
+                                    @endif
+                                </small>
+                            @endif
                         </div>
                     </div>
                 </form>
@@ -222,5 +284,45 @@
         </nav>
     </div>
     @endif
+</div>
+
+<!-- Modal Import -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data Aset Desa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.aset-desa.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Pilih File Excel</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".xlsx,.xls" required>
+                        <div class="form-text">
+                            <strong>Format file:</strong> Excel (.xlsx, .xls) maksimal 10MB
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-info-circle me-2"></i>Panduan Import:</h6>
+                        <ul class="mb-0">
+                            <li>Download template terlebih dahulu untuk format yang benar</li>
+                            <li>Pastikan nama desa sesuai dengan data yang ada</li>
+                            <li>Format tanggal: dd/mm/yyyy atau yyyy-mm-dd</li>
+                            <li>Kategori aset: tanah, bangunan, atau inventaris</li>
+                            <li>Kondisi: baik, rusak ringan, atau rusak berat</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload me-1"></i>Import Data
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

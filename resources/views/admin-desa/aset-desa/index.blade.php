@@ -9,11 +9,34 @@
         <span class="d-none d-md-inline">Tambah Aset</span>
         <span class="d-inline d-md-none">Tambah</span>
     </a>
-    <a href="{{ route('admin-desa.aset-desa.export.pdf') }}" class="btn btn-danger">
-        <i class="fas fa-file-pdf me-1"></i>
-        <span class="d-none d-md-inline">Export PDF</span>
-        <span class="d-inline d-md-none">PDF</span>
-    </a>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-download me-1"></i>
+            <span class="d-none d-md-inline">Export</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('admin-desa.aset-desa.export.excel', request()->query()) }}">
+                <i class="fas fa-file-excel me-2"></i>Export Excel
+            </a></li>
+            <li><a class="dropdown-item" href="{{ route('admin-desa.aset-desa.export.pdf', request()->query()) }}">
+                <i class="fas fa-file-pdf me-2"></i>Export PDF
+            </a></li>
+        </ul>
+    </div>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-upload me-1"></i>
+            <span class="d-none d-md-inline">Import</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('admin-desa.aset-desa.download-template') }}">
+                <i class="fas fa-download me-2"></i>Download Template
+            </a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#importModal">
+                <i class="fas fa-upload me-2"></i>Import Data
+            </a></li>
+        </ul>
+    </div>
 </div>
 @endsection
 
@@ -120,6 +143,25 @@
                 </div>
             </div>
         </form>
+        
+        <!-- Filter Status Indicator -->
+        @if(request()->hasAny(['search', 'kategori_aset', 'kondisi']))
+            <div class="mt-3">
+                <div class="alert alert-info py-2 mb-0">
+                    <i class="fas fa-filter me-2"></i>
+                    <strong>Filter aktif:</strong>
+                    @if(request('search'))
+                        Pencarian "{{ request('search') }}"
+                    @endif
+                    @if(request('kategori_aset'))
+                        | Kategori: {{ ucfirst(request('kategori_aset')) }}
+                    @endif
+                    @if(request('kondisi'))
+                        | Kondisi: {{ ucfirst(str_replace('_', ' ', request('kondisi'))) }}
+                    @endif
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -249,6 +291,46 @@
         <!-- Pagination -->
         <div class="d-flex justify-content-center mt-4">
             {{ $asetDesas->links() }}
+        </div>
+    </div>
+</div>
+
+<!-- Modal Import -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data Aset Desa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin-desa.aset-desa.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Pilih File Excel</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".xlsx,.xls" required>
+                        <div class="form-text">
+                            <strong>Format file:</strong> Excel (.xlsx, .xls) maksimal 10MB
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-info-circle me-2"></i>Panduan Import:</h6>
+                        <ul class="mb-0">
+                            <li>Download template terlebih dahulu untuk format yang benar</li>
+                            <li>Data akan otomatis terikat ke desa Anda</li>
+                            <li>Format tanggal: dd/mm/yyyy atau yyyy-mm-dd</li>
+                            <li>Kategori aset: tanah, bangunan, atau inventaris</li>
+                            <li>Kondisi: baik, rusak ringan, atau rusak berat</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload me-1"></i>Import Data
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

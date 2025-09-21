@@ -101,13 +101,15 @@
     <div class="col-md-4 col-lg-2 mb-3">
         <div class="card bg-dark text-white card-hover shadow-sm h-100">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="h4 mb-0 fw-bold">Rp {{ number_format($totalNilaiAsetDesa + $totalNilaiAsetWarga, 0, ',', '.') }}</div>
+                <div class="d-flex flex-column h-100">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
                         <div class="small">Total Nilai Aset</div>
+                        <div class="opacity-75">
+                            <i class="fas fa-coins fa-lg"></i>
+                        </div>
                     </div>
-                    <div class="opacity-75">
-                        <i class="fas fa-coins fa-2x"></i>
+                    <div class="flex-grow-1 d-flex align-items-center">
+                        <div class="h5 mb-0 fw-bold" style="font-size: 0.9rem; line-height: 1.2;">Rp {{ number_format($totalNilaiAsetDesa + $totalNilaiAsetWarga, 0, ',', '.') }}</div>
                     </div>
                 </div>
             </div>
