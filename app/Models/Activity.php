@@ -31,4 +31,9 @@ class Activity extends Model
     {
         return $this->belongsTo(Desa::class);
     }
+
+    public function subject()
+    {
+        return $this->morphTo();
+    }
 }

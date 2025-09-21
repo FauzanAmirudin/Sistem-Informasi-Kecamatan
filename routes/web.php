@@ -36,6 +36,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Data Desa
     Route::resource('desa', AdminDesaController::class);
     Route::post('desa/{desa}/update-coordinates', [AdminDesaController::class, 'updateCoordinates'])->name('desa.update-coordinates');
+    Route::get('desa/{desa}/download-sk', [AdminDesaController::class, 'downloadSK'])->name('desa.download-sk');
+    Route::get('desa/{desa}/download-monografi', [AdminDesaController::class, 'downloadMonografi'])->name('desa.download-monografi');
     
     // Perangkat Desa
     Route::get('perangkat-desa/export/excel', [AdminPerangkatDesaController::class, 'exportExcel'])->name('perangkat-desa.export.excel');
@@ -68,6 +70,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('users', AdminUserController::class);
     Route::post('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::post('users/{user}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::post('users/{user}/remove-profile-photo', [AdminUserController::class, 'removeProfilePhoto'])->name('users.remove-profile-photo');
+    
+    // Profile Admin Kecamatan
+    Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/reset-password', [App\Http\Controllers\Admin\ProfileController::class, 'showResetPasswordForm'])->name('profile.reset-password');
+    Route::put('/profile/reset-password', [App\Http\Controllers\Admin\ProfileController::class, 'resetPassword']);
+    Route::post('/profile/remove-profile-photo', [App\Http\Controllers\Admin\ProfileController::class, 'removeProfilePhoto'])->name('profile.remove-profile-photo');
 });
 
 // Admin Desa Routes
@@ -129,6 +139,7 @@ Route::prefix('admin-desa')->name('admin-desa.')->middleware(['auth', 'admin_des
     Route::put('/profile', [App\Http\Controllers\AdminDesa\ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/reset-password', [App\Http\Controllers\AdminDesa\ProfileController::class, 'showResetPasswordForm'])->name('profile.reset-password');
     Route::put('/profile/reset-password', [App\Http\Controllers\AdminDesa\ProfileController::class, 'resetPassword']);
+    Route::post('/profile/remove-profile-photo', [App\Http\Controllers\AdminDesa\ProfileController::class, 'removeProfilePhoto'])->name('profile.remove-profile-photo');
 }); 
 
 // Redirect after login

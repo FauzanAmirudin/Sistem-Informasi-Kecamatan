@@ -26,9 +26,40 @@
                 </h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.users.update', $user) }}" method="POST">
+                <form action="{{ route('admin.users.update', $user) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    
+                    <!-- Foto Profil -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold mb-3">Foto Profil</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="profile_photo" class="form-label">Upload Foto Profil</label>
+                                <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" 
+                                       id="profile_photo" name="profile_photo" accept="image/*">
+                                <div class="form-text">Format: JPG, PNG, GIF. Maksimal 2MB</div>
+                                @error('profile_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img id="preview" src="{{ $user->profile_photo_url }}" 
+                                         alt="Preview" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                    <div class="form-text">Preview Foto</div>
+                                    @if($user->profile_photo)
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-sm btn-outline-danger remove-photo"
+                                                data-url="{{ route('admin.users.remove-profile-photo', $user) }}">
+                                            <i class="fas fa-trash me-1"></i> Hapus Foto
+                                        </button>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- Informasi Dasar -->
                     <div class="mb-4">
@@ -138,9 +169,8 @@
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                        <i class="fas fa-user fa-lg"></i>
-                    </div>
+                    <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" 
+                         class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
                     <div>
                         <h6 class="mb-0 fw-bold">{{ $user->name }}</h6>
                         <small class="text-muted">{{ $user->email }}</small>
@@ -208,6 +238,53 @@
 
 @push('scripts')
 <script>
+    // Preview profile photo
+    document.getElementById('profile_photo').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('preview');
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Remove profile photo
+    const removePhotoBtn = document.querySelector('.remove-photo');
+    if (removePhotoBtn) {
+        removePhotoBtn.addEventListener('click', function() {
+            const url = this.dataset.url;
+            
+            if (confirm('Apakah Anda yakin ingin menghapus foto profil ini?')) {
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('preview').src = '{{ asset("images/default-avatar.svg") }}';
+                        this.style.display = 'none';
+                        alert(data.message);
+                    } else {
+                        alert('Terjadi kesalahan: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat menghapus foto');
+                });
+            }
+        });
+    }
+
     // Show/hide desa selection based on role
     document.getElementById('role').addEventListener('change', function() {
         const desaContainer = document.getElementById('desaContainer');

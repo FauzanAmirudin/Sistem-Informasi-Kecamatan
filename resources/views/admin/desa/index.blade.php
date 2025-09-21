@@ -27,7 +27,8 @@
                             <label class="form-label">Pencarian</label>
                             <input type="text" class="form-control" name="search" 
                                    value="{{ request('search') }}" 
-                                   placeholder="Nama desa atau kepala desa...">
+                                   placeholder="Cari nama desa atau kepala desa..."
+                                   autocomplete="off">
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Status</label>
@@ -48,10 +49,13 @@
                         </div>
                         <div class="col-md-2">
                             <label class="form-label">&nbsp;</label>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-outline-primary">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Cari Data">
                                     <i class="fas fa-search"></i>
                                 </button>
+                                <a href="{{ route('admin.desa.index') }}" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="Reset Filter">
+                                    <i class="fas fa-undo"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -64,9 +68,18 @@
             <div class="card-body text-center">
                 <h5 class="card-title">
                     <i class="fas fa-home text-primary me-2"></i>
-                    Total Desa
+                    @if(request()->hasAny(['search', 'status', 'update_status']))
+                        Hasil Pencarian
+                    @else
+                        Total Desa
+                    @endif
                 </h5>
                 <h2 class="text-primary mb-0">{{ $desas->total() }}</h2>
+                @if(request()->hasAny(['search', 'status', 'update_status']))
+                    <small class="text-muted">
+                        dari {{ App\Models\Desa::count() }} total desa
+                    </small>
+                @endif
             </div>
         </div>
     </div>
@@ -75,12 +88,52 @@
 <!-- Tabel Data Desa -->
 <div class="card shadow-sm">
     <div class="card-header bg-white">
-        <h5 class="card-title mb-0">
-            <i class="fas fa-list me-2 text-secondary"></i>
-            Daftar Desa
-        </h5>
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">
+                <i class="fas fa-list me-2 text-secondary"></i>
+                Daftar Desa
+            </h5>
+            @if(request()->hasAny(['search', 'status', 'update_status']))
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-info me-2">
+                        <i class="fas fa-filter me-1"></i>
+                        Filter Aktif
+                    </span>
+                    <a href="{{ route('admin.desa.index') }}" class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Hapus Semua Filter">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            @endif
+        </div>
     </div>
     <div class="card-body p-0">
+        @if(request()->hasAny(['search', 'status', 'update_status']))
+            <div class="alert alert-info alert-dismissible fade show m-3 mb-0" role="alert">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Filter Aktif:</strong>
+                        @if(request('search'))
+                            <span class="badge bg-primary me-1">Pencarian: "{{ request('search') }}"</span>
+                        @endif
+                        @if(request('status'))
+                            <span class="badge bg-success me-1">Status: {{ ucfirst(request('status')) }}</span>
+                        @endif
+                        @if(request('update_status'))
+                            @php
+                                $updateStatusText = request('update_status') == 'hijau' ? 'Update Terbaru' : 
+                                                   (request('update_status') == 'kuning' ? 'Perlu Update' : 'Butuh Perhatian');
+                            @endphp
+                            <span class="badge bg-warning me-1">Status Update: {{ $updateStatusText }}</span>
+                        @endif
+                    </div>
+                    <a href="{{ route('admin.desa.index') }}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-times me-1"></i>
+                        Hapus Filter
+                    </a>
+                </div>
+            </div>
+        @endif
         <div class="table-responsive">
             <table class="table table-hover mb-0">
                 <thead class="table-light">
@@ -242,5 +295,38 @@ function confirmDelete(url, message) {
         }
     });
 }
+
+// Initialize tooltips and enhance UX
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    
+    // Auto-focus on search field if empty
+    const searchField = document.querySelector('input[name="search"]');
+    if (searchField && !searchField.value) {
+        searchField.focus();
+    }
+    
+    // Add keyboard shortcut for search (Ctrl+F)
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'f') {
+            e.preventDefault();
+            searchField.focus();
+        }
+    });
+    
+    // Add Enter key support for search
+    if (searchField) {
+        searchField.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.querySelector('form').submit();
+            }
+        });
+    }
+});
 </script>
 @endpush

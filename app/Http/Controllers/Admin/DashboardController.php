@@ -34,7 +34,7 @@ class DashboardController extends Controller
      * Export statistik ke PDF
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return \Illuminate\Http\Response
      */
     public function exportPdf(Request $request)
     {
@@ -228,5 +228,6 @@ class DashboardController extends Controller
             'totalNilaiAsetDesa',
             'totalAsetWarga',
             'totalNilaiAsetWarga'
-        ));}
+        ));
     }
+}

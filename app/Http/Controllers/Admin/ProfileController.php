@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\AdminDesa;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -14,18 +14,18 @@ use Illuminate\Validation\Rules;
 class ProfileController extends Controller
 {
     /**
-     * Menampilkan form edit profil admin desa
+     * Menampilkan form edit profil admin kecamatan
      *
      * @return \Illuminate\View\View
      */
     public function edit()
     {
         $user = Auth::user();
-        return view('admin-desa.profile.edit', compact('user'));
+        return view('admin.profile.edit', compact('user'));
     }
 
     /**
-     * Update profil admin desa
+     * Update profil admin kecamatan
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -64,7 +64,7 @@ class ProfileController extends Controller
 
         User::where('id', $user->id)->update($updateData);
 
-        return redirect()->route('admin-desa.profile.edit')
+        return redirect()->route('admin.profile.edit')
             ->with('success', 'Profil berhasil diperbarui.');
     }
 
@@ -75,11 +75,11 @@ class ProfileController extends Controller
      */
     public function showResetPasswordForm()
     {
-        return view('admin-desa.profile.reset-password');
+        return view('admin.profile.reset-password');
     }
 
     /**
-     * Reset password admin desa
+     * Reset password admin kecamatan
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -101,7 +101,7 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('admin-desa.profile.reset-password')
+        return redirect()->route('admin.profile.reset-password')
             ->with('success', 'Password berhasil diubah.');
     }
 

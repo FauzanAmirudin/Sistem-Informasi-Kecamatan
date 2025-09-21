@@ -4,22 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Login - Sistem Informasi Kecamatan Belitang Jaya</title>
+    <link rel="icon" type="image/png" href="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Minimal custom CSS - hanya untuk gradient background dan shadow effects */
+        /* Custom CSS dengan warna dari app.blade.php dan animasi */
         .bg-gradient-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0504ff 0%, #3d5af1 100%) !important;
         }
         .shadow-custom {
             box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
         }
         .btn-gradient {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #0504ff, #3d5af1);
             border: none;
         }
         .btn-gradient:hover {
-            background: linear-gradient(45deg, #5a6fd8, #6a4190);
+            background: linear-gradient(45deg, #0000d6, #2d4ae1);
+        }
+        
+        /* Animasi untuk left side panel */
+        .info-panel {
+            position: relative;
+            overflow: hidden;
+            animation: slideInFromLeft 0.8s ease-out;
+        }
+        
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Animasi untuk logo */
+        .logo-container {
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Animasi untuk icon info */
+        .info-icons .col-4 {
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .info-icons .col-4:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .info-icons .col-4:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .info-icons .col-4:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Animasi untuk text */
+        .info-panel h2, .info-panel h3 {
+            animation: slideInFromBottom 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .info-panel h2 {
+            animation-delay: 0.3s;
+        }
+        
+        .info-panel h3 {
+            animation-delay: 0.5s;
+        }
+        
+        .info-panel .lead {
+            animation: slideInFromBottom 0.8s ease-out;
+            animation-delay: 0.7s;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Hover effect untuk icon */
+        .info-icons .col-4:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-icons .col-4:hover i {
+            color: #ffd700 !important;
+            transition: color 0.3s ease;
+        }
+        
+        /* Animasi untuk right side (form login) */
+        .login-form {
+            animation: slideInFromRight 0.8s ease-out;
+            animation-delay: 0.3s;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Animasi untuk form elements */
+        .form-control, .btn, .form-check {
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .form-control:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+        
+        .form-control:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+        
+        .form-check {
+            animation-delay: 0.9s;
+        }
+        
+        .btn {
+            animation-delay: 1.1s;
         }
         
         /* Responsive styles */
@@ -38,6 +184,18 @@
             }
             .order-2 {
                 order: 2 !important;
+            }
+            
+            /* Disable animasi di mobile untuk performa */
+            .info-panel, .login-form, .info-icons .col-4, 
+            .info-panel h2, .info-panel h3, .info-panel .lead,
+            .form-control, .btn, .form-check {
+                animation: none !important;
+            }
+            
+            /* Logo tetap ada animasi tapi lebih sederhana */
+            .logo-container {
+                animation: logoFloat 4s ease-in-out infinite;
             }
         }
         
@@ -60,6 +218,12 @@
             }
             .form-label {
                 margin-bottom: 0.25rem;
+            }
+            
+            /* Logo responsive untuk mobile */
+            .logo-container img {
+                max-height: 80px !important;
+                padding: 10px !important;
             }
         }
         
@@ -104,6 +268,12 @@
             .form-check-label {
                 font-size: 0.9rem;
             }
+            
+            /* Logo untuk layar sangat kecil */
+            .logo-container img {
+                max-height: 60px !important;
+                padding: 8px !important;
+            }
         }
         
         /* Extra small devices */
@@ -126,6 +296,12 @@
             .info-icons small {
                 font-size: 0.7rem;
             }
+            
+            /* Logo untuk extra small devices */
+            .logo-container img {
+                max-height: 50px !important;
+                padding: 5px !important;
+            }
         }
     </style>
 </head>
@@ -137,12 +313,23 @@
                     <div class="card-body p-0">
                         <div class="row g-0">
                             <!-- Left Side - Info Panel -->
-                            <div class="col-lg-6 bg-gradient-primary text-white d-flex align-items-center order-2 order-lg-1">
+                            <div class="col-lg-6 bg-gradient-primary text-white d-flex align-items-center order-2 order-lg-1 info-panel">
                                 <div class="p-5 text-center w-100 info-panel-text">
                                     <div class="mb-4">
-                                        <i class="fas fa-building display-1 mb-3"></i>
+                                        <!-- Logo Kabupaten OKU Timur -->
+                                        <div class="logo-container mb-4">
+                                            <img src="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}" 
+                                                 alt="Logo Kabupaten OKU Timur" 
+                                                 class="img-fluid" 
+                                                 style="max-height: 120px; width: auto; 
+                                                        border-radius: 25%; 
+                                                        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+                                                        background: rgba(255, 255, 255, 0.9);
+                                                        padding: 15px;">
+                                        </div>
                                         <h2 class="fw-bold mb-2">Sistem Informasi</h2>
                                         <h3 class="fw-bold">Kecamatan Belitang Jaya</h3>
+                                        <p class="mb-0 text-white-50">Kabupaten Ogan Komering Ulu Timur</p>
                                     </div>
                                     <p class="lead mb-4">
                                         Sistem terpadu untuk mengelola data desa, penduduk, perangkat desa, dan aset di wilayah Kecamatan Belitang Jaya

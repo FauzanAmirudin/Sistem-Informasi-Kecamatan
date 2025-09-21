@@ -1,6 +1,15 @@
-@extends('layouts.admin-desa')
+@extends('layouts.admin')
 
 @section('page-title', 'Edit Profil')
+
+@section('page-actions')
+<div class="btn-group" role="group">
+    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-1"></i>
+        Kembali ke Dashboard
+    </a>
+</div>
+@endsection
 
 @section('admin-content')
 <div class="container-fluid">
@@ -19,7 +28,7 @@
                         </div>
                     @endif
                     
-                    <form action="{{ route('admin-desa.profile.update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         
@@ -44,7 +53,7 @@
                                         @if($user->profile_photo)
                                         <div class="mt-2">
                                             <button type="button" class="btn btn-sm btn-outline-danger remove-photo"
-                                                    data-url="{{ route('admin-desa.profile.remove-profile-photo') }}">
+                                                    data-url="{{ route('admin.profile.remove-profile-photo') }}">
                                                 <i class="fas fa-trash me-1"></i> Hapus Foto
                                             </button>
                                         </div>
@@ -106,18 +115,9 @@
                     <div class="mb-3">
                         <div class="d-flex justify-content-between">
                             <span class="text-muted">Role:</span>
-                            <span class="badge bg-primary">Admin Desa</span>
+                            <span class="badge bg-success">Admin Kecamatan</span>
                         </div>
                     </div>
-                    
-                    @if($user->desa)
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted">Desa:</span>
-                            <span>{{ $user->desa->nama_desa }}</span>
-                        </div>
-                    </div>
-                    @endif
                     
                     <div class="mb-3">
                         <div class="d-flex justify-content-between">
@@ -136,7 +136,7 @@
                     <hr>
                     
                     <div class="d-grid gap-2">
-                        <a href="{{ route('admin-desa.profile.reset-password') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('admin.profile.reset-password') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-key me-1"></i> Ubah Password
                         </a>
                     </div>

@@ -14,7 +14,7 @@ class DesaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -43,8 +43,7 @@ class DesaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Desa  $desa
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit()
     {
@@ -61,8 +60,7 @@ class DesaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Desa  $desa
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
@@ -119,7 +117,7 @@ class DesaController extends Controller
     /**
      * Download SK Kepala Desa
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadSK()
     {
@@ -147,7 +145,7 @@ class DesaController extends Controller
     /**
      * Download Monografi Desa
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadMonografi()
     {
@@ -175,8 +173,7 @@ class DesaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Desa  $desa
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show()
     {

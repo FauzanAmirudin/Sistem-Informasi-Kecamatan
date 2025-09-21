@@ -28,9 +28,8 @@
             </div>
             <div class="card-body">
                 <div class="text-center mb-4">
-                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 100px; height: 100px;">
-                        <i class="fas fa-user fa-3x text-primary"></i>
-                    </div>
+                    <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" 
+                         class="rounded-circle mx-auto mb-3" style="width: 100px; height: 100px; object-fit: cover;">
                     <h5 class="fw-bold mb-0">{{ $user->name }}</h5>
                     <p class="text-muted">{{ $user->email }}</p>
                     <div class="badge {{ $user->is_active ? 'bg-success' : 'bg-danger' }} mb-2">

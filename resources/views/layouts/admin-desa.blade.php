@@ -22,17 +22,18 @@
                 <!-- User Info -->
                 <div class="text-center mb-4 px-3">
                     <div class="bg-white bg-opacity-10 rounded-3 p-3 mb-3">
-                        <i class="fas fa-user-circle display-6 text-white mb-2"></i>
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" 
+                             class="rounded-circle mb-2" style="width: 60px; height: 60px; object-fit: cover;">
                         <h6 class="text-white fw-bold mb-1">Admin Desa</h6>
                         <small class="text-white-50">{{ Auth::user()->name }}</small>
                         @if(Auth::user()->desa)
                             <div class="mt-1 badge bg-light text-primary">{{ Auth::user()->desa->nama_desa }}</div>
                         @endif
-                        <div class="mt-2">
+                        {{-- <div class="mt-2">
                             <a href="{{ route('admin-desa.profile.edit') }}" class="btn btn-sm btn-light text-primary">
                                 <i class="fas fa-user-edit me-1"></i> Edit Profil
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 
@@ -121,7 +122,7 @@
                     
                     <!-- Konfigurasi Dropdown -->
                     <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.dokumen.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.dokumen.*') || request()->routeIs('admin-desa.profile.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
                            data-bs-toggle="collapse" href="#konfigurasiCollapse" role="button" aria-expanded="false" aria-controls="konfigurasiCollapse">
                             <div>
                                 <i class="fas fa-cog me-2"></i>
@@ -129,8 +130,15 @@
                             </div>
                             <i class="fas fa-chevron-down small"></i>
                         </a>
-                        <div class="collapse {{ request()->routeIs('admin-desa.dokumen.*') ? 'show' : '' }}" id="konfigurasiCollapse">
+                        <div class="collapse {{ request()->routeIs('admin-desa.dokumen.*') || request()->routeIs('admin-desa.profile.*') ? 'show' : '' }}" id="konfigurasiCollapse">
                             <ul class="nav flex-column ms-3 mt-1">
+                                {{-- <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.profile.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.profile.edit') }}">
+                                        <i class="fas fa-user-edit me-2"></i>
+                                        Edit Profil
+                                    </a>
+                                </li> --}}
                                 <li class="nav-item mb-1">
                                     <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.dokumen.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
                                        href="{{ route('admin-desa.dokumen.index') }}">
@@ -140,7 +148,6 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
                     </li>
                     
                     <li class="nav-item mb-1">

@@ -100,7 +100,7 @@ class Desa extends Model
             return 'merah';
         }
 
-        $daysSinceUpdate = Carbon::now()->diffInDays($this->last_updated_at);
+        $daysSinceUpdate = abs(Carbon::now()->diffInDays($this->last_updated_at));
         
         if ($daysSinceUpdate <= 7) {
             return 'hijau';

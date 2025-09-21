@@ -8,6 +8,8 @@ use App\Models\Desa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -33,7 +35,16 @@ class UserController extends Controller
             'desa_id' => 'required_if:role,admin_desa|exists:desas,id',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $profilePhoto = null;
+        if ($request->hasFile('profile_photo')) {
+            $file = $request->file('profile_photo');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/profile-photos'), $filename);
+            $profilePhoto = $filename;
+        }
 
         User::create([
             'name' => $request->name,
@@ -43,6 +54,7 @@ class UserController extends Controller
             'desa_id' => $request->role === 'admin_desa' ? $request->desa_id : null,
             'phone' => $request->phone,
             'address' => $request->address,
+            'profile_photo' => $profilePhoto,
             'is_active' => true,
         ]);
 
@@ -53,7 +65,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user->load('desa');
-        $activities = $user->userActivities()->with('subject')->orderBy('created_at', 'desc')->get();
+        $activities = $user->activities()->with('subject')->orderBy('created_at', 'desc')->get();
         return view('admin.users.show', compact('user', 'activities'));
     }
 
@@ -72,16 +84,32 @@ class UserController extends Controller
             'desa_id' => 'required_if:role,admin_desa|exists:desas,id',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user->update([
+        $updateData = [
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
             'desa_id' => $request->role === 'admin_desa' ? $request->desa_id : null,
             'phone' => $request->phone,
             'address' => $request->address,
-        ]);
+        ];
+
+        // Handle profile photo upload
+        if ($request->hasFile('profile_photo')) {
+            // Delete old photo if exists
+            if ($user->profile_photo && file_exists(public_path('uploads/profile-photos/' . $user->profile_photo))) {
+                unlink(public_path('uploads/profile-photos/' . $user->profile_photo));
+            }
+
+            $file = $request->file('profile_photo');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/profile-photos'), $filename);
+            $updateData['profile_photo'] = $filename;
+        }
+
+        $user->update($updateData);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User berhasil diperbarui.');
@@ -149,6 +177,20 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Password user berhasil direset menjadi: ' . $newPassword
+        ]);
+    }
+
+    public function removeProfilePhoto(User $user)
+    {
+        if ($user->profile_photo && file_exists(public_path('uploads/profile-photos/' . $user->profile_photo))) {
+            unlink(public_path('uploads/profile-photos/' . $user->profile_photo));
+        }
+
+        $user->update(['profile_photo' => null]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Foto profil berhasil dihapus.'
         ]);
     }
     }

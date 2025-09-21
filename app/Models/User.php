@@ -18,6 +18,7 @@ class User extends Authenticatable
         'desa_id',
         'phone',
         'address',
+        'profile_photo',
         'is_active',
     ];
 
@@ -51,6 +52,15 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
+    // Accessor for profile photo URL
+    public function getProfilePhotoUrlAttribute()
+    {
+        if ($this->profile_photo) {
+            return asset('uploads/profile-photos/' . $this->profile_photo);
+        }
+        return asset('images/default-avatar.svg');
+    }
+
     // Helper methods
     public function isAdminKecamatan()
     {
@@ -60,5 +70,19 @@ class User extends Authenticatable
     public function isAdminDesa()
     {
         return $this->role === 'admin_desa';
+    }
+
+    // Activity logging method
+    public function recordActivity($event, $description, $properties = [])
+    {
+        $this->activities()->create([
+            'log_name' => $event,
+            'description' => $description,
+            'subject_type' => get_class($this),
+            'subject_id' => $this->id,
+            'properties' => $properties,
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
     }
 }

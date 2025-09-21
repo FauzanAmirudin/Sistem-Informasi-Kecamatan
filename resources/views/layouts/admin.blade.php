@@ -19,7 +19,8 @@
                 <!-- User Info -->
                 <div class="text-center mb-4 px-3">
                     <div class="bg-white bg-opacity-10 rounded-3 p-3 mb-3">
-                        <i class="fas fa-user-circle display-6 text-white mb-2"></i>
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" 
+                             class="rounded-circle mb-2" style="width: 60px; height: 60px; object-fit: cover;">
                         <h6 class="text-white fw-bold mb-1">Admin Kecamatan</h6>
                         <small class="text-white-50">{{ Auth::user()->name }}</small>
                     </div>
@@ -117,7 +118,7 @@
                     
                     <!-- Konfigurasi Dropdown -->
                     <li class="nav-item mb-1">
-                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin.dokumen.*') || request()->routeIs('admin.users.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin.dokumen.*') || request()->routeIs('admin.users.*') || request()->routeIs('admin.profile.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
                            data-bs-toggle="collapse" href="#konfigurasiCollapse" role="button" aria-expanded="false" aria-controls="konfigurasiCollapse">
                             <div>
                                 <i class="fas fa-cog me-2"></i>
@@ -125,8 +126,15 @@
                             </div>
                             <i class="fas fa-chevron-down small"></i>
                         </a>
-                        <div class="collapse {{ request()->routeIs('admin.dokumen.*') || request()->routeIs('admin.users.*') ? 'show' : '' }}" id="konfigurasiCollapse">
+                        <div class="collapse {{ request()->routeIs('admin.dokumen.*') || request()->routeIs('admin.users.*') || request()->routeIs('admin.profile.*') ? 'show' : '' }}" id="konfigurasiCollapse">
                             <ul class="nav flex-column ms-3 mt-1">
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin.profile.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin.profile.edit') }}">
+                                        <i class="fas fa-user-edit me-2"></i>
+                                        Edit Profil
+                                    </a>
+                                </li>
                                 <li class="nav-item mb-1">
                                     <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin.dokumen.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
                                        href="{{ route('admin.dokumen.index') }}">

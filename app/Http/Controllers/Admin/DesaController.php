@@ -28,9 +28,24 @@ class DesaController extends Controller
             $query->where('status', $request->status);
         }
         
-        // Filter berdasarkan status update
+        // Filter berdasarkan status update (berdasarkan last_updated_at)
         if ($request->filled('update_status')) {
-            $query->where('status_update', $request->update_status);
+            $updateStatus = $request->update_status;
+            
+            if ($updateStatus === 'hijau') {
+                // Update dalam 7 hari terakhir (termasuk hari ke-7)
+                // Menggunakan raw SQL untuk menghitung selisih hari
+                $query->whereRaw('DATEDIFF(NOW(), last_updated_at) <= 7');
+            } elseif ($updateStatus === 'kuning') {
+                // Update antara 8-30 hari yang lalu
+                $query->whereRaw('DATEDIFF(NOW(), last_updated_at) > 7 AND DATEDIFF(NOW(), last_updated_at) <= 30');
+            } elseif ($updateStatus === 'merah') {
+                // Update lebih dari 30 hari yang lalu atau belum pernah update
+                $query->where(function($q) {
+                    $q->whereRaw('DATEDIFF(NOW(), last_updated_at) > 30')
+                      ->orWhereNull('last_updated_at');
+                });
+            }
         }
         
         $desas = $query->orderBy('nama_desa')->paginate(20);
@@ -161,7 +176,7 @@ class DesaController extends Controller
      * Download SK Kepala Desa
      *
      * @param  \App\Models\Desa  $desa
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadSK(Desa $desa)
     {
@@ -184,7 +199,7 @@ class DesaController extends Controller
      * Download Monografi Desa
      *
      * @param  \App\Models\Desa  $desa
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadMonografi(Desa $desa)
     {

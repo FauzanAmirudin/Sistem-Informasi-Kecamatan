@@ -22,8 +22,31 @@
                 </h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.users.store') }}" method="POST">
+                <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    
+                    <!-- Foto Profil -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold mb-3">Foto Profil</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="profile_photo" class="form-label">Upload Foto Profil</label>
+                                <input type="file" class="form-control @error('profile_photo') is-invalid @enderror" 
+                                       id="profile_photo" name="profile_photo" accept="image/*">
+                                <div class="form-text">Format: JPG, PNG, GIF. Maksimal 2MB</div>
+                                @error('profile_photo')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img id="preview" src="{{ asset('images/default-avatar.svg') }}" 
+                                         alt="Preview" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                    <div class="form-text">Preview Foto</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- Informasi Dasar -->
                     <div class="mb-4">
@@ -178,6 +201,22 @@
 
 @push('scripts')
 <script>
+    // Preview profile photo
+    document.getElementById('profile_photo').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('preview');
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '{{ asset("images/default-avatar.svg") }}';
+        }
+    });
+
     // Toggle password visibility
     document.querySelectorAll('.toggle-password').forEach(button => {
         button.addEventListener('click', function() {
