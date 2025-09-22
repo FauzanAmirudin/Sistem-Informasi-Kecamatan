@@ -11,8 +11,10 @@ use App\Http\Controllers\Admin\AsetDesaController as AdminAsetDesaController;
 use App\Http\Controllers\Admin\AsetTanahWargaController as AdminAsetTanahWargaController;
 use App\Http\Controllers\Admin\DokumenController as AdminDokumenController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\InformationController as AdminInformationController;
 use App\Http\Controllers\AdminDesa\DashboardController as AdminDesaDashboardController;
 use App\Http\Controllers\AdminDesa\ProfilDesaController;
+use App\Http\Controllers\AdminDesa\InformationController as AdminDesaInformationController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -74,6 +76,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::post('users/{user}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');
     Route::post('users/{user}/remove-profile-photo', [AdminUserController::class, 'removeProfilePhoto'])->name('users.remove-profile-photo');
+    
+    // Information Management
+    Route::resource('information', AdminInformationController::class);
+    Route::post('information/{information}/toggle-status', [AdminInformationController::class, 'toggleStatus'])->name('information.toggle-status');
     
     // Profile Admin Kecamatan
     Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
@@ -140,6 +146,10 @@ Route::prefix('admin-desa')->name('admin-desa.')->middleware(['auth', 'admin_des
     // FAQ dan Panduan Penggunaan
     Route::get('/faq', [App\Http\Controllers\AdminDesa\FaqController::class, 'index'])->name('faq.index');
     Route::get('/panduan-penggunaan', [App\Http\Controllers\AdminDesa\FaqController::class, 'panduan'])->name('faq.panduan');
+    
+    // Information & Statistics
+    Route::get('/information', [AdminDesaInformationController::class, 'index'])->name('information.index');
+    Route::get('/information/{information}', [AdminDesaInformationController::class, 'show'])->name('information.show');
     
     // Profil Admin Desa
     Route::get('/profile', [App\Http\Controllers\AdminDesa\ProfileController::class, 'edit'])->name('profile.edit');

@@ -120,6 +120,29 @@
                         </div>
                     </li>
                     
+                    <!-- Informasi Dropdown -->
+                    <li class="nav-item mb-1">
+                        <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.information.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                           data-bs-toggle="collapse" href="#informasiCollapse" role="button" aria-expanded="false" aria-controls="informasiCollapse">
+                            <div>
+                                <i class="fas fa-newspaper me-2"></i>
+                                Informasi
+                            </div>
+                            <i class="fas fa-chevron-down small"></i>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin-desa.information.*') ? 'show' : '' }}" id="informasiCollapse">
+                            <ul class="nav flex-column ms-3 mt-1">
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link sidebar-link rounded-2 py-1 {{ request()->routeIs('admin-desa.information.index') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 
+                                       href="{{ route('admin-desa.information.index') }}">
+                                        <i class="fas fa-chart-bar me-2"></i>
+                                        Informasi & Statistik
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    
                     <!-- Konfigurasi Dropdown -->
                     <li class="nav-item mb-1">
                         <a class="nav-link sidebar-link rounded-2 d-flex justify-content-between align-items-center {{ request()->routeIs('admin-desa.dokumen.*') || request()->routeIs('admin-desa.profile.*') ? 'bg-white text-primary fw-bold' : 'text-white' }}" 

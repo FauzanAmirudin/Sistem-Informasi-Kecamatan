@@ -14,6 +14,19 @@
         .bg-gradient-primary {
             background: linear-gradient(135deg, #0504ff 0%, #3d5af1 100%) !important;
         }
+        
+        /* Background dengan gambar bg-login saja */
+        .bg-pattern {
+            background-image: 
+                url('{{ asset("bg-login.jpg") }}'),
+                url('{{ asset("bg-login.png") }}'),
+                url('{{ asset("bg-login.webp") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        
         .shadow-custom {
             box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
         }
@@ -193,6 +206,16 @@
                 animation: none !important;
             }
             
+            /* Disable pattern animation di mobile */
+            .bg-pattern {
+                animation: none !important;
+            }
+            
+            /* Optimasi background untuk mobile */
+            .bg-pattern {
+                background-attachment: scroll !important;
+            }
+            
             /* Logo tetap ada animasi tapi lebih sederhana */
             .logo-container {
                 animation: logoFloat 4s ease-in-out infinite;
@@ -305,7 +328,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-primary min-vh-100 d-flex align-items-center py-3 py-sm-5">
+<body class="bg-pattern min-vh-100 d-flex align-items-center py-3 py-sm-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
@@ -322,9 +345,6 @@
                                                  alt="Logo Kabupaten OKU Timur" 
                                                  class="img-fluid" 
                                                  style="max-height: 120px; width: auto; 
-                                                        border-radius: 25%; 
-                                                        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
-                                                        background: rgba(255, 255, 255, 0.9);
                                                         padding: 15px;">
                                         </div>
                                         <h2 class="fw-bold mb-2">Sistem Informasi</h2>
