@@ -237,10 +237,19 @@ class PendudukController extends Controller
     /**
      * Download template Excel untuk import data penduduk
      */
-    public function downloadTemplate()
+    public function downloadTemplate(Request $request)
     {
+        $validated = $request->validate([
+            'jumlah_baris' => 'nullable|integer|min:1|max:1000',
+            'kolom' => 'nullable|array',
+            'kolom.*' => 'string',
+        ]);
+
+        $numRows = (int)($validated['jumlah_baris'] ?? 50);
+        $columns = $validated['kolom'] ?? null;
+
         $filename = 'template-import-penduduk-' . date('Y-m-d') . '.xlsx';
-        return Excel::download(new PendudukTemplateExport(), $filename);
+        return Excel::download(new PendudukTemplateExport($columns, $numRows), $filename);
     }
 
     /**
@@ -255,7 +264,7 @@ class PendudukController extends Controller
 
             $jumlahBaris = $request->jumlah_baris;
             
-            $exporter = new \App\Exports\PendudukTemplatePdfExport($jumlahBaris);
+            $exporter = new PendudukTemplatePdfExport($jumlahBaris);
             return $exporter->download();
         } catch (\Exception $e) {
             return redirect()->route('admin.penduduk.index')

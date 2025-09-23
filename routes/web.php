@@ -44,13 +44,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('perangkat-desa', AdminPerangkatDesaController::class);
     Route::get('perangkat-desa/{perangkat}/riwayat', [AdminPerangkatDesaController::class, 'riwayat'])->name('perangkat-desa.riwayat');
     
-    // Data Penduduk
-    Route::resource('penduduk', AdminPendudukController::class);
+    // Data Penduduk (custom routes FIRST to avoid collision with resource 'show')
     Route::get('penduduk/export/excel', [AdminPendudukController::class, 'exportExcel'])->name('penduduk.export.excel');
     Route::get('penduduk/export/pdf', [AdminPendudukController::class, 'exportPdf'])->name('penduduk.export.pdf');
     Route::get('penduduk/download-template', [AdminPendudukController::class, 'downloadTemplate'])->name('penduduk.download-template');
     Route::get('penduduk/download-template-pdf', [AdminPendudukController::class, 'downloadTemplatePdf'])->name('penduduk.download-template-pdf');
     Route::post('penduduk/import', [AdminPendudukController::class, 'import'])->name('penduduk.import');
+    Route::resource('penduduk', AdminPendudukController::class);
     
     // Aset Desa
     Route::get('aset-desa/export/pdf', [AdminAsetDesaController::class, 'exportPdf'])->name('aset-desa.export.pdf');
@@ -108,14 +108,14 @@ Route::prefix('admin-desa')->name('admin-desa.')->middleware(['auth', 'admin_des
     Route::put('/profil', '\App\Http\Controllers\AdminDesa\ProfilDesaController@update')->name('profil.update');
     Route::get('/profil/download-monografi', '\App\Http\Controllers\AdminDesa\ProfilDesaController@downloadMonografi')->name('profil.download-monografi');
     
-    // Data Penduduk
-    Route::resource('penduduk', '\App\Http\Controllers\AdminDesa\PendudukController');
+    // Data Penduduk (custom routes FIRST to avoid collision with resource 'show')
     Route::get('penduduk/export/excel', '\App\Http\Controllers\AdminDesa\PendudukController@exportExcel')->name('penduduk.export.excel');
     Route::get('penduduk/export-excel', '\App\Http\Controllers\AdminDesa\PendudukController@exportExcel')->name('penduduk.export-excel');
     Route::get('penduduk/export/pdf', '\App\Http\Controllers\AdminDesa\PendudukController@exportPdf')->name('penduduk.export.pdf');
     Route::get('penduduk/template', '\App\Http\Controllers\AdminDesa\PendudukController@downloadTemplate')->name('penduduk.template');
-    Route::get('penduduk/download-template-pdf', '\App\Http\Controllers\AdminDesa\PendudukController@downloadTemplatePdf')->name('admin-desa.penduduk.download-template-pdf');
+    Route::get('penduduk/download-template-pdf', '\App\Http\Controllers\AdminDesa\PendudukController@downloadTemplatePdf')->name('penduduk.download-template-pdf');
     Route::post('penduduk/import', '\App\Http\Controllers\AdminDesa\PendudukController@import')->name('penduduk.import');
+    Route::resource('penduduk', '\App\Http\Controllers\AdminDesa\PendudukController');
     
     // Perangkat Desa
     Route::resource('perangkat-desa', '\App\Http\Controllers\AdminDesa\PerangkatDesaController');

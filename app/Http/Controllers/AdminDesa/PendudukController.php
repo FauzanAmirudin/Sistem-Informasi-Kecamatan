@@ -348,10 +348,24 @@ class PendudukController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadTemplate()
+    public function downloadTemplate(Request $request)
     {
+        \Log::info('AdminDesa downloadTemplate hit', [
+            'url' => $request->fullUrl(),
+            'user_id' => optional(auth()->user())->id,
+        ]);
+
+        $validated = $request->validate([
+            'jumlah_baris' => 'nullable|integer|min:1|max:1000',
+            'kolom' => 'nullable|array',
+            'kolom.*' => 'string',
+        ]);
+
+        $numRows = (int)($validated['jumlah_baris'] ?? 50);
+        $columns = $validated['kolom'] ?? null;
+
         $filename = 'template-import-penduduk.xlsx';
-        return Excel::download(new \App\Exports\PendudukTemplateExport(), $filename);
+        return Excel::download(new \App\Exports\PendudukTemplateExport($columns, $numRows), $filename);
     }
 
     /**

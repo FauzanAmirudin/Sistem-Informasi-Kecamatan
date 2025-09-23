@@ -28,7 +28,7 @@
             Import
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ route('admin.penduduk.download-template') }}">
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templateExcelModal">
                 <i class="fas fa-file-excel me-2"></i>Download Template Excel
             </a></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templatePdfModal">
@@ -306,9 +306,9 @@
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle me-2"></i>
                         <strong>Download template:</strong>
-                        <a href="{{ route('admin.penduduk.download-template') }}" class="btn btn-sm btn-outline-primary ms-2">
+                        <button type="button" class="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#templateExcelModal">
                             <i class="fas fa-download me-1"></i>Template Excel
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -393,6 +393,47 @@ function confirmDelete(url, message) {
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-download me-1"></i>Download Template PDF
                     </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Template Excel -->
+<div class="modal fade" id="templateExcelModal" tabindex="-1" aria-labelledby="templateExcelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="templateExcelModalLabel">Download Template Excel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.penduduk.download-template') }}" method="GET">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="jumlah_baris_excel" class="form-label">Jumlah Baris Kosong</label>
+                        <input type="number" class="form-control" id="jumlah_baris_excel" name="jumlah_baris" value="50" min="1" max="1000">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Pilih Kolom</label>
+                        <div class="row">
+                            @php
+                                $koloms = ['nik','nama_lengkap','jenis_kelamin','tempat_lahir','tanggal_lahir','agama','status_perkawinan','pekerjaan','pendidikan_terakhir','alamat','rt','rw','desa','memiliki_ktp','tanggal_rekam_ktp'];
+                            @endphp
+                            @foreach($koloms as $k)
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="kolom[]" value="{{ $k }}" id="admin-col-{{ $k }}" checked>
+                                    <label class="form-check-label" for="admin-col-{{ $k }}">{{ str_replace('_',' ', ucfirst($k)) }}</label>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="form-text">Biarkan semua tercentang bila ingin kolom lengkap.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-download me-1"></i>Download</button>
                 </div>
             </form>
         </div>

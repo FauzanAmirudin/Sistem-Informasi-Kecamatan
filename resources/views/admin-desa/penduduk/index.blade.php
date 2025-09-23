@@ -25,7 +25,7 @@
             <i class="fas fa-file-import me-1"></i> Import
         </button>
         <div class="dropdown-menu" aria-labelledby="importDropdown">
-            <a class="dropdown-item" href="{{ route('admin-desa.penduduk.template') }}">
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templateExcelModal">
                 <i class="fas fa-file-excel me-1"></i> Download Template Excel
             </a>
             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#templatePdfModal">
@@ -343,9 +343,9 @@
                                 </div>
                                 <div>
                                     <p class="mb-1">Pastikan format data sesuai dengan template.</p>
-                                    <a href="{{ route('admin-desa.penduduk.template') }}" class="btn btn-sm btn-outline-primary mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#templateExcelModal">
                                         <i class="fas fa-download me-1"></i> Download Template
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -396,6 +396,47 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-download me-1"></i>Download Template PDF
                         </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Template Excel -->
+    <div class="modal fade" id="templateExcelModal" tabindex="-1" aria-labelledby="templateExcelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templateExcelModalLabel">Download Template Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('admin-desa.penduduk.template') }}" method="GET">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="jumlah_baris_excel" class="form-label">Jumlah Baris Kosong</label>
+                            <input type="number" class="form-control" id="jumlah_baris_excel" name="jumlah_baris" value="50" min="1" max="1000">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Pilih Kolom</label>
+                            <div class="row">
+                                @php
+                                    $koloms = ['nik','nama_lengkap','jenis_kelamin','tempat_lahir','tanggal_lahir','agama','status_perkawinan','pekerjaan','pendidikan_terakhir','alamat','rt','rw','desa','memiliki_ktp','tanggal_rekam_ktp'];
+                                @endphp
+                                @foreach($koloms as $k)
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="kolom[]" value="{{ $k }}" id="col-{{ $k }}" checked>
+                                        <label class="form-check-label" for="col-{{ $k }}">{{ str_replace('_',' ', ucfirst($k)) }}</label>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="form-text">Biarkan semua tercentang bila ingin kolom lengkap.</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-download me-1"></i>Download</button>
                     </div>
                 </form>
             </div>
