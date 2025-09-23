@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', $perangkatDesa->nama_lengkap)
+@section('page-subtitle', 'Detail data perangkat desa')
 
 @section('page-actions')
 <div class="btn-group" role="group">

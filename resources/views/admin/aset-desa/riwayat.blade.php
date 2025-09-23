@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Riwayat Aset Desa')
+@section('page-subtitle', 'Riwayat perubahan aset desa')
 
 @section('page-actions')
 <div class="btn-group d-flex flex-wrap mb-3" role="group">

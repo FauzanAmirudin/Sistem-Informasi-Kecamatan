@@ -2,219 +2,181 @@
 
 # 🏢 Sistem Informasi Kecamatan Belitang Jaya
 
-[![Laravel](https://img.shields.io/badge/Laravel-v12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-v8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-v5.2-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![Laravel](https://img.shields.io/badge/Laravel-v12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![Vite](https://img.shields.io/badge/Vite-Build-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 [![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 
 </div>
 
-## 📋 Deskripsi Proyek
+## 📋 Deskripsi Singkat
 
-Sistem Informasi Kecamatan adalah platform digital yang dirancang untuk membantu pengelolaan data dan informasi di tingkat kecamatan dan desa. Sistem ini memungkinkan pengelolaan data penduduk, aset desa, dokumen, dan berbagai informasi penting lainnya secara terintegrasi.
+Aplikasi ini membantu pengelolaan data di tingkat kecamatan dan desa: penduduk, perangkat desa, aset desa, dokumen, serta dashboard statistik dan laporan. Sistem mendukung dua peran utama dengan batasan akses yang jelas.
 
-Sistem ini memiliki dua tingkat akses utama:
-
--   **Admin Kecamatan**: Memiliki akses penuh untuk mengelola seluruh data kecamatan dan desa
--   **Admin Desa**: Memiliki akses untuk mengelola data desa masing-masing
+-   **Admin Kecamatan**: Mengelola seluruh data lintas desa, monitoring, dan laporan.
+-   **Admin Desa**: Mengelola data untuk desa miliknya saja.
 
 ## 🌟 Fitur Utama
 
--   👥 **Manajemen Data Penduduk**
+-   **Manajemen Data Penduduk**
 
-    -   Pencatatan data penduduk lengkap
-    -   Klasifikasi berdasarkan usia, jenis kelamin, dan status
-    -   Pencarian dan filter data penduduk
+    -   CRUD lengkap, validasi, riwayat perubahan
+    -   Klasifikasi usia otomatis, statistik gender, pekerjaan, pendidikan
+    -   Import dari Excel (template tersedia), export ke Excel dan PDF
 
--   👨‍💼 **Manajemen Perangkat Desa**
+-   **Manajemen Perangkat Desa**
 
-    -   Pencatatan data perangkat desa
-    -   Pengelolaan jabatan dan masa tugas
-    -   Riwayat perangkat desa
+    -   CRUD, status aktif/nonaktif, riwayat perangkat
+    -   Export ke Excel dan PDF
 
--   🏠 **Manajemen Aset Desa**
+-   **Aset Desa & Aset Tanah Warga**
 
-    -   Pencatatan aset desa (tanah, bangunan, inventaris)
-    -   Pengelolaan kondisi dan nilai aset
-    -   Riwayat aset desa
+    -   Pencatatan aset, nilai aset, bukti aset (upload dokumen/gambar)
+    -   Rekap nilai aset per desa, export Excel/PDF
 
--   📄 **Manajemen Dokumen**
+-   **Dokumen Desa**
 
-    -   Upload dan penyimpanan dokumen penting
-    -   Kategorisasi dokumen
-    -   Kontrol akses dokumen
+    -   Unggah dokumen penting (SK, profil desa, SPH, dsb.)
+    -   Penyimpanan terstruktur pada `storage/app/public` (linked ke `public/storage`)
 
--   📊 **Dashboard dan Statistik**
+-   **Dashboard & Statistik**
 
-    -   Visualisasi data penduduk, perangkat, dan aset
-    -   Laporan statistik desa
-    -   Export data ke Excel dan PDF
+    -   Ringkasan per desa (penduduk, perangkat, aset)
+    -   Grafik perbandingan (Chart.js), tabel detail dengan pencarian
+    -   Status update per desa: Terbaru, Perlu Update, Belum Update
 
--   🔍 **Monitoring Desa**
-    -   Pemantauan status update data desa
-    -   Notifikasi pembaruan data
+-   **Autentikasi & Keamanan**
+    -   Login, proteksi rute per peran, pengecekan kepemilikan desa
+    -   Logging aktivitas login di `app/Listeners/LogSuccessfulLogin.php`
 
-## 🛠️ Teknologi yang Digunakan
+## 📦 Teknologi & Paket
 
-### Backend
+-   Laravel 12, PHP 8.2, MySQL
+-   Bootstrap 5.2, Font Awesome, Vite, SASS/Tailwind utilities
+-   Maatwebsite/Laravel-Excel (import/export), barryvdh/laravel-dompdf (PDF)
 
--   **[Laravel 12](https://laravel.com)**: Framework PHP untuk pengembangan aplikasi web
--   **[PHP 8.2](https://php.net)**: Bahasa pemrograman server-side
--   **[MySQL](https://mysql.com)**: Sistem manajemen database relasional
-
-### Frontend
-
--   **[Bootstrap 5.2](https://getbootstrap.com)**: Framework CSS untuk desain responsif
--   **[Vite](https://vitejs.dev)**: Build tool untuk frontend
--   **[SASS](https://sass-lang.com)**: Preprocessor CSS
--   **[Font Awesome](https://fontawesome.com)**: Ikon dan font
-
-### Package Utama
-
--   **[Laravel UI](https://github.com/laravel/ui)**: Package untuk autentikasi dan UI
--   **[Intervention Image](https://image.intervention.io)**: Manipulasi gambar
--   **[DomPDF](https://github.com/barryvdh/laravel-dompdf)**: Generasi file PDF
--   **[Maatwebsite Excel](https://laravel-excel.com)**: Export/import data Excel
-
-## 📁 Struktur Proyek
+## 🗂️ Struktur Folder Singkat
 
 ```
-sistem-kecamatan/
-├── app/                  # Kode aplikasi utama
-│   ├── Http/            # Controllers, Middleware, Requests
-│   ├── Models/          # Model database
-│   ├── Exports/         # Kelas untuk export data
-│   └── Providers/       # Service providers
-├── config/              # File konfigurasi
-├── database/            # Migrasi dan seeders
-│   ├── migrations/      # Skema database
-│   └── seeders/         # Data awal
-├── public/              # File publik (CSS, JS, gambar)
-├── resources/           # View dan asset
-│   ├── views/           # Template Blade
-│   │   ├── admin/       # View untuk admin kecamatan
-│   │   ├── admin-desa/  # View untuk admin desa
-│   │   └── layouts/     # Layout template
-│   ├── js/              # File JavaScript
-│   └── sass/            # File SASS
-├── routes/              # Definisi rute
-└── storage/             # File yang diupload dan cache
+app/
+  Http/Controllers/Admin/       # Modul Admin Kecamatan
+  Http/Controllers/AdminDesa/   # Modul Admin Desa
+  Exports/, Imports/            # Export & Import (Excel/PDF)
+  Models/                       # Model (Penduduk, Desa, Aset, dsb.)
+resources/views/
+  admin/, admin-desa/, layouts/ # Blade templates
+public/uploads/                 # Berkas terunggah (bukti aset, dokumen, foto)
 ```
 
-## 📊 Struktur Database
+## ✅ Prasyarat
 
-Sistem ini menggunakan beberapa tabel utama:
-
--   **users**: Data pengguna sistem
--   **desas**: Data desa di kecamatan
--   **penduduks**: Data penduduk desa
--   **perangkat_desas**: Data perangkat desa
--   **aset_desas**: Data aset milik desa
--   **aset_tanah_wargas**: Data aset tanah milik warga
--   **dokumens**: Dokumen-dokumen penting desa
--   **activities**: Log aktivitas pengguna
-
-## 🚀 Cara Menjalankan Proyek
-
-### Prasyarat
-
--   PHP 8.2 atau lebih tinggi
+-   PHP 8.2+
 -   Composer
--   MySQL
--   Node.js dan NPM
+-   Node.js 18+ dan NPM
+-   MySQL/MariaDB
 
-### Langkah Instalasi
+## 🚀 Instalasi & Menjalankan
 
-1. **Clone repositori**
+1. Clone & pasang dependensi
 
-    ```bash
-    git clone [url-repositori]
-    cd sistem-kecamatan
-    ```
+```bash
+git clone <repo-url>
+cd sistem-kecamatan
+composer install
+npm install
+```
 
-2. **Instal dependensi PHP**
+2. Env & key
 
-    ```bash
-    composer install
-    ```
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-3. **Instal dependensi JavaScript**
+3. Konfigurasi database (.env)
 
-    ```bash
-    npm install
-    ```
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sistem_kecamatan
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-4. **Salin file .env**
+4. Migrasi & seeding awal
 
-    ```bash
-    cp .env.example .env
-    ```
+```bash
+php artisan migrate --seed
+php artisan storage:link
+```
 
-5. **Generate application key**
+5. Build asset
 
-    ```bash
-    php artisan key:generate
-    ```
+```bash
+npm run build       # build production
+# atau mode pengembangan
+npm run dev         # dev server dengan HMR
+npm run watch       # rebuild saat file berubah
+```
 
-6. **Konfigurasi database di file .env**
+6. Jalankan server
 
-    ```
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=sistem_kecamatan
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
+```bash
+php artisan serve
+# akses: http://localhost:8000
+```
 
-7. **Jalankan migrasi dan seeder**
+## 👥 Akun Contoh (hasil seeder)
 
-    ```bash
-    php artisan migrate --seed
-    ```
+-   **Admin Kecamatan**
+    -   Email: `admin@kecamatan.com`
+    -   Password: `password123`
+-   **Admin Desa**
+    -   Email: `admin.desa1@kecamatan.com`
+    -   Password: `password123`
 
-8. **Buat symbolic link untuk storage**
+## 📤 Import/Export Data
 
-    ```bash
-    php artisan storage:link
-    ```
+-   Template impor tersedia di `public/templates/`
+-   Export Excel/PDF tersedia pada halaman statistik dan modul data (Penduduk, Perangkat, Aset Desa, Aset Tanah Warga)
 
-9. **Compile asset**
+## 🧭 Hak Akses & Aturan
 
-    ```bash
-    npm run build
-    ```
+-   Admin Kecamatan: akses penuh semua desa
+-   Admin Desa: hanya data dengan `desa_id` sama dengan user
+-   Middleware & validasi rute mencegah akses lintas desa
 
-10. **Jalankan server development**
+## 🧰 Skrip NPM Berguna
 
-    ```bash
-    php artisan serve
-    ```
+```bash
+npm run dev      # Vite dev server
+npm run build    # Production build
+npm run watch    # Watch & rebuild
+```
 
-11. **Akses aplikasi**
-    Buka browser dan akses `http://localhost:8000`
+## 🧪 Testing (opsional)
 
-## 👥 Akses Sistem
+```bash
+php artisan test
+```
 
-Setelah menjalankan seeder, Anda dapat login dengan kredensial berikut:
+## 🔒 Catatan Keamanan
 
-### Admin Kecamatan
+-   Pastikan folder `storage/` dan `bootstrap/cache/` writable
+-   Gunakan kredensial database yang aman
+-   Produksi: set `APP_DEBUG=false`, set `APP_URL`
 
--   Email: admin@kecamatan.com
--   Password: password123
+## 🛡️ Backup & Berkas
 
-### Admin Desa
+-   Upload pengguna disimpan pada `public/uploads/`
+-   Disarankan backup berkala untuk folder `storage/` dan database
 
--   Email: admin.desa1@kecamatan.com
--   Password: password123
+## 📞 Dukungan
+
+Pertanyaan/dukungan: buka issue di repo ini atau hubungi administrator proyek.
 
 ## 📝 Lisensi
 
-Sistem Informasi Kecamatan adalah perangkat lunak open-source yang dilisensikan di bawah [MIT license](https://opensource.org/licenses/MIT).
-
-## 📞 Kontak
-
-Untuk pertanyaan dan dukungan, silakan hubungi:
-
--   Email: support@kecamatan.go.id
--   Telepon: (021) 1234567
+Dirilis di bawah lisensi [MIT](https://opensource.org/licenses/MIT).

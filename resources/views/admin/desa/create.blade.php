@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Tambah Data Desa')
+@section('page-subtitle', 'Tambah data desa baru')
 
 @section('page-actions')
 <a href="{{ route('admin.desa.index') }}" class="btn btn-secondary">

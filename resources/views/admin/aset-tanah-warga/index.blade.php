@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Data Aset Tanah Warga')
+@section('page-title', 'Aset Tanah Warga')
+@section('page-subtitle', 'Kelola data aset tanah warga seluruh kecamatan')
 
 @section('page-actions')
 <div class="btn-group" role="group">

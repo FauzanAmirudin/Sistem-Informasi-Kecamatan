@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Riwayat Penduduk: ' . $penduduk->nama_lengkap)
+@section('page-subtitle', 'Riwayat perubahan data penduduk')
 
 @section('page-actions')
 <div class="btn-group d-flex flex-wrap mb-3" role="group">

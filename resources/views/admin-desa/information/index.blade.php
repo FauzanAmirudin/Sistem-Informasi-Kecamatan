@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
-@section('page-title', 'Informasi & Statistik Desa')
+@section('page-title', 'Informasi & Statistik')
+@section('page-subtitle', 'Data statistik dan informasi desa')
 
 @section('admin-content')
 <!-- Informasi dari Kecamatan -->

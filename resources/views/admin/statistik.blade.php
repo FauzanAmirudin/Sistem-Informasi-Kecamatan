@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Statistik Detail')
+@section('page-subtitle', 'Analisis data dan laporan statistik')
 
 @push('styles')
 <style>
@@ -64,6 +65,38 @@
         font-weight: 500;
         padding: 0.35em 0.65em;
     }
+    
+    /* Status badge improvements */
+    .badge.bg-success {
+        background-color: #198754 !important;
+        color: #ffffff !important;
+    }
+    
+    .badge.bg-warning {
+        background-color: #ffc107 !important;
+        color: #000000 !important;
+    }
+    
+    .badge.bg-danger {
+        background-color: #dc3545 !important;
+        color: #ffffff !important;
+    }
+    
+    /* Status card header improvements */
+    .card-header.bg-success {
+        background-color: #198754 !important;
+        color: #ffffff !important;
+    }
+    
+    .card-header.bg-warning {
+        background-color: #ffc107 !important;
+        color: #000000 !important;
+    }
+    
+    .card-header.bg-danger {
+        background-color: #dc3545 !important;
+        color: #ffffff !important;
+    }
 </style>
 @endpush
 
@@ -121,7 +154,7 @@
                     @foreach($statistikPerDesa as $desa)
                     <div class="col-6 col-md-4 col-lg-3">
                         <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden transition-all hover-shadow">
-                            <div class="card-header bg-{{ $desa['status_update'] }} text-success py-1">
+                            <div class="card-header py-1 @if($desa['status_update'] == 'hijau') bg-success text-white @elseif($desa['status_update'] == 'kuning') bg-warning text-dark @else bg-danger text-white @endif">
                                 <h6 class="mb-0 fw-bold small">{{ $desa['nama_desa'] }}</h6>
                             </div>
                             <div class="card-body p-2">
@@ -326,9 +359,19 @@
                                 <td class="py-2 px-3 text-center small d-none d-md-table-cell">{{ number_format($desa['total_aset']) }}</td>
                                 <td class="py-2 px-3 text-end fw-bold small d-none d-md-table-cell">{{ number_format($desa['nilai_aset'], 0, ',', '.') }}</td>
                                 <td class="py-2 px-3 text-center">
-                                    <span class="badge rounded-pill bg-{{ $desa['status_update'] }} small">
-                                        {{ $desa['status_update'] == 'hijau' ? 'Terbaru' : ($desa['status_update'] == 'kuning' ? 'Perlu Update' : 'Belum Update') }}
-                                    </span>
+                                    @if($desa['status_update'] == 'hijau')
+                                        <span class="badge rounded-pill bg-success text-white small">
+                                            <i class="fas fa-check-circle me-1"></i>Terbaru
+                                        </span>
+                                    @elseif($desa['status_update'] == 'kuning')
+                                        <span class="badge rounded-pill bg-warning text-dark small">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>Perlu Update
+                                        </span>
+                                    @else
+                                        <span class="badge rounded-pill bg-danger text-white small">
+                                            <i class="fas fa-times-circle me-1"></i>Belum Update
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

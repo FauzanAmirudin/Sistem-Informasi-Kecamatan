@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Manajemen Dokumen')
+@section('page-title', 'Dokumen')
+@section('page-subtitle', 'Kelola dokumen dan file sistem')
 
 @section('page-actions')
 <div class="btn-group" role="group">

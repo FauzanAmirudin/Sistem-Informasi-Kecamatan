@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', 'Detail Aset: ' . $asetDesa->nama_aset)
+@section('page-subtitle', 'Detail data aset desa')
 
 @section('page-actions')
 <div class="btn-group d-flex flex-wrap mb-3" role="group">

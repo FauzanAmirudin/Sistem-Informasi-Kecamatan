@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', 'Edit Profil')
+@section('page-subtitle', 'Edit profil pengguna')
 
 @section('admin-content')
 <div class="container-fluid">

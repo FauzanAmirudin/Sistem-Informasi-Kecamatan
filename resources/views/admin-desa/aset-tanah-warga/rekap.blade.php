@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', 'Rekap Aset Tanah Warga')
+@section('page-subtitle', 'Rekap data aset tanah warga')
 
 @section('page-actions')
 <div class="btn-group" role="group">

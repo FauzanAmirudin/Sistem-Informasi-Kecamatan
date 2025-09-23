@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Detail Informasi')
+@section('page-subtitle', 'Detail informasi')
 
 @section('page-actions')
 <div class="btn-group" role="group">

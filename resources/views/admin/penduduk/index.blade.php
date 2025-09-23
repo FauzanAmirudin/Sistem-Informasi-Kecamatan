@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Data Penduduk')
+@section('page-subtitle', 'Kelola data penduduk seluruh desa')
 
 @section('page-actions')
 <div class="btn-group" role="group">

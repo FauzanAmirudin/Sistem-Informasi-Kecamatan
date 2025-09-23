@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Dashboard Admin Kecamatan')
+@section('page-title', 'Dashboard')
+@section('page-subtitle', 'Ringkasan data dan statistik kecamatan')
 
 @section('page-actions')
 <div class="btn-group" role="group">

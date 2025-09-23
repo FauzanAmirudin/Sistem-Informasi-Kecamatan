@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +6,110 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+/* Custom Mobile Responsive Styles */
+@media (max-width: 767.98px) {
+    /* Mobile Header Improvements */
+    .mobile-header-logo {
+        max-width: 35px;
+        height: auto;
+    }
+
+    .mobile-header-title {
+        font-size: 1.1rem;
+        line-height: 1.2;
+    }
+
+    .mobile-header-subtitle {
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+
+    /* Mobile Page Actions */
+    .mobile-page-actions .btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Mobile Sidebar Improvements */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 280px;
+        height: 100vh;
+        z-index: 1050;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    /* Mobile Main Content */
+    .main-content-mobile {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    /* Mobile Alert Improvements */
+    .alert {
+        font-size: 0.875rem;
+        padding: 0.75rem;
+    }
+
+    /* Mobile Card Improvements */
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .card-header {
+        padding: 0.75rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    /* Mobile Table Improvements */
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+
+    /* Mobile Form Improvements */
+    .form-control,
+    .form-select {
+        font-size: 0.875rem;
+    }
+
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.75rem;
+    }
+}
+
+/* Tablet Responsive */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .main-content-tablet {
+        margin-left: 250px;
+    }
+}
+
+/* Desktop Responsive */
+@media (min-width: 992px) {
+    .sidebar {
+        width: 280px;
+    }
+
+    .main-content-desktop {
+        margin-left: 280px;
+    }
 }

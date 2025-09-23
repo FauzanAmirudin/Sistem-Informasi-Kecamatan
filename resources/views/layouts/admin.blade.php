@@ -200,17 +200,68 @@
         </nav>
 
         <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-3 px-md-4" style="margin-left: 16.666667%;">
-            <!-- Header with Logo and Welcome Message -->
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <div class="d-flex align-items-center">
-                    <img src="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}" alt="Logo Kabupaten OKU Timur" class="me-3" style="height: 50px;">
-                    <h1 class="h2 text-dark fw-bold mb-0">@yield('page-title', 'Dashboard')</h1>
-                </div>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-end">
-                        <p class="mb-0 fw-bold">Selamat Datang, Admin Kecamatan</p>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-3 px-md-4 main-content-mobile" style="margin-left: 16.666667%;">
+            <!-- Layout Header with Logo and Welcome Message -->
+            <div class="border-bottom mb-3">
+                <!-- Mobile Header -->
+                <div class="d-md-none pt-3 pb-2">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}" alt="Logo" class="me-2" style="height: 35px;">
+                            <div>
+                                <h1 class="h5 mb-0">Sistem Informasi Kecamatan</h1>
+                                <small class="text-muted d-block">Belitang Jaya - OKU Timur</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="mb-1 fw-bold small">Selamat Datang, Admin Kecamatan</p>
                         <small class="text-muted">{{ Auth::user()->name }}</small>
+                    </div>
+                </div>
+                
+                <!-- Desktop Header -->
+                <div class="d-none d-md-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('Lambang_Kabupaten_OKU_Timur.png') }}" alt="Logo Kabupaten OKU Timur" class="me-3" style="height: 50px;">
+                        <div>
+                            <h1 class="h2 mb-0">Sistem Informasi Kecamatan</h1>
+                            <small class="text-muted">Belitang Jaya - OKU Timur</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="me-3 text-end">
+                            <p class="mb-0 fw-bold">Selamat Datang, Admin Kecamatan</p>
+                            <small class="text-muted">{{ Auth::user()->name }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page Header with Title and Actions -->
+            <div class="pt-2 pb-2 mb-3">
+                <!-- Mobile Page Header -->
+                <div class="d-md-none">
+                    <div class="mb-2">
+                        <h2 class="h5 mb-1 text-dark">@yield('page-title', 'Dashboard')</h2>
+                        @hasSection('page-subtitle')
+                            <p class="text-muted mb-2 small">@yield('page-subtitle')</p>
+                        @endif
+                    </div>
+                    @hasSection('page-actions')
+                        <div class="d-grid gap-2">
+                            @yield('page-actions')
+                        </div>
+                    @endif
+                </div>
+                
+                <!-- Desktop Page Header -->
+                <div class="d-none d-md-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                    <div>
+                        <h2 class="h4 mb-0 text-dark">@yield('page-title', 'Dashboard')</h2>
+                        @hasSection('page-subtitle')
+                            <p class="text-muted mb-0">@yield('page-subtitle')</p>
+                        @endif
                     </div>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         @yield('page-actions')
@@ -264,3 +315,41 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile sidebar toggle
+    const sidebarToggle = document.querySelector('[data-bs-target=".sidebar"]');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth < 768) {
+                if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            }
+        });
+        
+        // Close sidebar when window is resized to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('show');
+            }
+        });
+    }
+    
+    // Mobile page actions responsive handling
+    const pageActions = document.querySelector('.btn-toolbar');
+    if (pageActions && window.innerWidth < 768) {
+        pageActions.classList.add('mobile-page-actions');
+    }
+});
+</script>
+@endpush

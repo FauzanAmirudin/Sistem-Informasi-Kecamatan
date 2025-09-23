@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', 'Tambah SPH Aset Tanah Warga')
+@section('page-subtitle', 'Tambah data aset tanah warga')
 
 @section('page-actions')
 <a href="{{ route('admin-desa.aset-tanah-warga.index') }}" class="btn btn-secondary">

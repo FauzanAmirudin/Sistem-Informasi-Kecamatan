@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', 'Profil Desa')
+@section('page-subtitle', 'Informasi dan data profil desa')
 
 @section('page-actions')
 <div class="btn-group" role="group">

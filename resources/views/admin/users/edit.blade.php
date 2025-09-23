@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Edit User: ' . $user->name)
+@section('page-subtitle', 'Edit data pengguna')
 
 @section('page-actions')
 <div class="btn-group" role="group">

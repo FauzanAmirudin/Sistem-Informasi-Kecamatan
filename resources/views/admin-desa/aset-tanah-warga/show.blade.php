@@ -1,6 +1,7 @@
 @extends('layouts.admin-desa')
 
 @section('page-title', 'Detail SPH Aset Tanah Warga')
+@section('page-subtitle', 'Detail data aset tanah warga')
 
 @section('page-actions')
 <div class="btn-group" role="group">

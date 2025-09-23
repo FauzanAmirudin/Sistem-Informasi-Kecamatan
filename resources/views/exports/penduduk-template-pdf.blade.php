@@ -5,47 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Data Penduduk</title>
     <style>
+        @page {
+            size: A4 landscape;
+            margin: 15mm;
+        }
+        
         body {
             font-family: Arial, sans-serif;
-            font-size: 10px;
+            font-size: 11px;
             margin: 0;
-            padding: 20px;
-            line-height: 1.2;
+            padding: 10px;
+            line-height: 1.3;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         .header h1 {
-            font-size: 16px;
+            font-size: 18px;
             margin: 0;
             font-weight: bold;
         }
         
         .header h2 {
             font-size: 14px;
-            margin: 5px 0;
+            margin: 3px 0;
             font-weight: normal;
         }
         
         .header p {
-            font-size: 10px;
+            font-size: 11px;
             margin: 0;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         
         th, td {
             border: 1px solid #333;
-            padding: 4px;
+            padding: 6px 4px;
             text-align: left;
             vertical-align: top;
         }
@@ -54,109 +59,109 @@
             background-color: #f5f5f5;
             font-weight: bold;
             text-align: center;
-            font-size: 9px;
+            font-size: 10px;
         }
         
         td {
-            font-size: 9px;
-            min-height: 20px;
+            font-size: 10px;
+            min-height: 25px;
         }
         
         .no-col {
-            width: 4%;
+            width: 3%;
             text-align: center;
         }
         
         .nik-col {
-            width: 12%;
+            width: 11%;
         }
         
         .nama-col {
-            width: 15%;
+            width: 14%;
         }
         
         .jk-col {
-            width: 6%;
+            width: 4%;
             text-align: center;
         }
         
         .tempat-lahir-col {
-            width: 10%;
+            width: 9%;
         }
         
         .tanggal-lahir-col {
-            width: 8%;
+            width: 7%;
             text-align: center;
         }
         
         .usia-col {
-            width: 5%;
+            width: 4%;
             text-align: center;
         }
         
         .agama-col {
-            width: 8%;
+            width: 7%;
         }
         
         .status-col {
-            width: 8%;
+            width: 7%;
         }
         
         .pekerjaan-col {
-            width: 10%;
+            width: 9%;
         }
         
         .pendidikan-col {
-            width: 8%;
+            width: 7%;
         }
         
         .alamat-col {
-            width: 12%;
+            width: 11%;
         }
         
         .rt-col {
-            width: 4%;
+            width: 3%;
             text-align: center;
         }
         
         .rw-col {
-            width: 4%;
+            width: 3%;
             text-align: center;
         }
         
         .ktp-col {
-            width: 6%;
+            width: 4%;
             text-align: center;
         }
         
         .footer {
-            margin-top: 20px;
-            font-size: 8px;
+            margin-top: 15px;
+            font-size: 9px;
             text-align: center;
             color: #666;
         }
         
         .instruksi {
-            margin-bottom: 15px;
-            padding: 10px;
+            margin-bottom: 12px;
+            padding: 8px;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            font-size: 9px;
+            font-size: 10px;
         }
         
         .instruksi h3 {
-            margin: 0 0 5px 0;
-            font-size: 10px;
+            margin: 0 0 4px 0;
+            font-size: 11px;
             font-weight: bold;
         }
         
         .instruksi ul {
-            margin: 5px 0;
+            margin: 4px 0;
             padding-left: 15px;
         }
         
         .instruksi li {
-            margin: 2px 0;
+            margin: 1px 0;
         }
     </style>
 </head>

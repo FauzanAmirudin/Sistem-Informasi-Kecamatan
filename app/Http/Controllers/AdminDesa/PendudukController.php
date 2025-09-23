@@ -172,7 +172,8 @@ class PendudukController extends Controller
         
         $desaId = Auth::user()->desa_id;
         $desa = Desa::find($desaId);
-        return view('admin-desa.penduduk.edit', compact('penduduk', 'desa'));
+        $desas = Desa::where('status', 'aktif')->orderBy('nama_desa')->get();
+        return view('admin-desa.penduduk.edit', compact('penduduk', 'desa', 'desas'));
     }
 
     /**

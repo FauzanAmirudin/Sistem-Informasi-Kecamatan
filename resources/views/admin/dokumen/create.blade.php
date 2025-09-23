@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Upload Dokumen Baru')
+@section('page-subtitle', 'Upload dokumen baru')
 
 @section('page-actions')
 <a href="{{ route('admin.dokumen.index') }}" class="btn btn-secondary">

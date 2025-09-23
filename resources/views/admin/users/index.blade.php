@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Manajemen User')
+@section('page-subtitle', 'Kelola akun pengguna sistem')
 
 @section('page-actions')
 <div class="btn-group" role="group">

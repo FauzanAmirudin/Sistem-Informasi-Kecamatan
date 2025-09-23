@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Detail Aset Desa')
+@section('page-subtitle', 'Detail data aset desa')
 
 @section('page-actions')
 <div class="btn-group" role="group">

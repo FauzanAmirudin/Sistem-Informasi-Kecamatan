@@ -1,15 +1,15 @@
-@extends('layouts.admin')
+@extends('layouts.admin-desa')
 
 @section('page-title', 'Detail Penduduk: ' . $penduduk->nama_lengkap)
 @section('page-subtitle', 'Detail data penduduk')
 
 @section('page-actions')
 <div class="btn-group" role="group">
-    <a href="{{ route('admin.penduduk.edit', $penduduk) }}" class="btn btn-warning">
+    <a href="{{ route('admin-desa.penduduk.edit', $penduduk) }}" class="btn btn-warning">
         <i class="fas fa-edit me-1"></i>
         Edit
     </a>
-    <a href="{{ route('admin.penduduk.index') }}" class="btn btn-secondary">
+    <a href="{{ route('admin-desa.penduduk.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left me-1"></i>
         Kembali
     </a>
@@ -260,25 +260,19 @@
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
-                    <a href="{{ route('admin.penduduk.edit', $penduduk) }}" 
+                    <a href="{{ route('admin-desa.penduduk.edit', $penduduk) }}" 
                        class="btn btn-outline-warning">
                         <i class="fas fa-edit me-2"></i>
                         Edit Data Penduduk
                     </a>
                     
-                    <a href="{{ route('admin.desa.show', $penduduk->desa) }}" 
+                    <a href="{{ route('admin-desa.desa.show') }}" 
                        class="btn btn-outline-primary">
                         <i class="fas fa-home me-2"></i>
                         Lihat Data Desa
                     </a>
                     
-                    <a href="{{ route('admin.penduduk.index', ['desa_id' => $penduduk->desa_id]) }}" 
-                       class="btn btn-outline-info">
-                        <i class="fas fa-users me-2"></i>
-                        Penduduk Se-Desa
-                    </a>
-                    
-                    <a href="{{ route('admin.penduduk.index', ['rt' => $penduduk->rt, 'rw' => $penduduk->rw, 'desa_id' => $penduduk->desa_id]) }}" 
+                    <a href="{{ route('admin-desa.penduduk.index', ['rt' => $penduduk->rt, 'rw' => $penduduk->rw]) }}" 
                        class="btn btn-outline-success">
                         <i class="fas fa-map-signs me-2"></i>
                         Penduduk Se-RT/RW

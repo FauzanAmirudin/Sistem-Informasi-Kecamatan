@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title', 'Ubah Password')
+@section('page-subtitle', 'Reset password pengguna')
 
 @section('page-actions')
 <div class="btn-group" role="group">
