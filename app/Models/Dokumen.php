@@ -55,6 +55,6 @@ class Dokumen extends Model
 
     public function getFileUrlAttribute()
     {
-        return Storage::url($this->file_path);
+        return $this->file_path ? asset('uploads/' . $this->file_path) : null;
     }
 }

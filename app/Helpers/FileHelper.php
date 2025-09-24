@@ -19,11 +19,11 @@ class FileHelper
         }
 
         // Pastikan file ada di storage
-        if (!Storage::disk('public')->exists($filePath)) {
+        if (!Storage::disk('uploads')->exists($filePath)) {
             return null;
         }
 
-        return Storage::url($filePath);
+        return asset('uploads/' . $filePath);
     }
 
     /**
@@ -38,7 +38,7 @@ class FileHelper
             return false;
         }
 
-        return Storage::disk('public')->exists($filePath);
+        return Storage::disk('uploads')->exists($filePath);
     }
 
     /**

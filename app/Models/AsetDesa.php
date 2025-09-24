@@ -105,7 +105,7 @@ class AsetDesa extends Model
 
     public function getFileUrlAttribute()
     {
-        return $this->bukti_kepemilikan ? Storage::url($this->bukti_kepemilikan) : null;
+        return $this->bukti_kepemilikan ? asset('uploads/' . $this->bukti_kepemilikan) : null;
     }
 
     protected static function boot()

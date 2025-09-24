@@ -78,7 +78,7 @@ class AsetDesaController extends Controller
         // Upload bukti kepemilikan
         if ($request->hasFile('bukti_kepemilikan')) {
             $data['bukti_kepemilikan'] = $request->file('bukti_kepemilikan')
-                ->store('bukti-aset', 'public');
+                ->store('bukti-aset', 'uploads');
         }
 
         $aset = AsetDesa::create($data);
@@ -128,10 +128,10 @@ class AsetDesaController extends Controller
         if ($request->hasFile('bukti_kepemilikan')) {
             // Hapus file lama
             if ($asetDesa->bukti_kepemilikan) {
-                Storage::disk('public')->delete($asetDesa->bukti_kepemilikan);
+                Storage::disk('uploads')->delete($asetDesa->bukti_kepemilikan);
             }
             $data['bukti_kepemilikan'] = $request->file('bukti_kepemilikan')
-                ->store('bukti-aset', 'public');
+                ->store('bukti-aset', 'uploads');
         }
 
         $asetDesa->update($data);
@@ -152,7 +152,7 @@ class AsetDesaController extends Controller
         
         // Hapus file bukti kepemilikan jika ada
         if ($asetDesa->bukti_kepemilikan) {
-            Storage::disk('public')->delete($asetDesa->bukti_kepemilikan);
+            Storage::disk('uploads')->delete($asetDesa->bukti_kepemilikan);
         }
 
         $asetDesa->delete();

@@ -88,20 +88,20 @@ class ProfilDesaController extends Controller
         if ($request->hasFile('sk_kepala_desa')) {
             // Hapus file lama
             if ($desa->sk_kepala_desa) {
-                Storage::disk('public')->delete($desa->sk_kepala_desa);
+                Storage::disk('uploads')->delete($desa->sk_kepala_desa);
             }
             $data['sk_kepala_desa'] = $request->file('sk_kepala_desa')
-                ->store('sk-kepala-desa', 'public');
+                ->store('sk-kepala-desa', 'uploads');
         }
         
         // Upload Monografi
         if ($request->hasFile('monografi_file')) {
             // Hapus file lama
             if ($desa->monografi_file) {
-                Storage::disk('public')->delete($desa->monografi_file);
+                Storage::disk('uploads')->delete($desa->monografi_file);
             }
             $data['monografi_file'] = $request->file('monografi_file')
-                ->store('monografi', 'public');
+                ->store('monografi', 'uploads');
         }
 
         $data['last_updated_at'] = now();
@@ -132,6 +132,7 @@ class ProfilDesaController extends Controller
             return redirect()->back()->with('error', 'File monografi belum diunggah.');
         }
         
-return response()->download(storage_path('app/public/' . $desa->monografi_file), 'Monografi_' . $desa->nama_desa . '.pdf');
+        $absolutePath = Storage::disk('uploads')->path($desa->monografi_file);
+        return response()->download($absolutePath, 'Monografi_' . $desa->nama_desa . '.pdf');
     }
 }

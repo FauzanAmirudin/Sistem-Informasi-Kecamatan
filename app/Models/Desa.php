@@ -120,11 +120,11 @@ class Desa extends Model
     // File URL helpers
     public function getSkKepalaDesaUrlAttribute()
     {
-        return $this->sk_kepala_desa ? asset('storage/' . $this->sk_kepala_desa) : null;
+        return $this->sk_kepala_desa ? asset('uploads/' . $this->sk_kepala_desa) : null;
     }
 
     public function getMonografiFileUrlAttribute()
     {
-        return $this->monografi_file ? asset('storage/' . $this->monografi_file) : null;
+        return $this->monografi_file ? asset('uploads/' . $this->monografi_file) : null;
     }
 }

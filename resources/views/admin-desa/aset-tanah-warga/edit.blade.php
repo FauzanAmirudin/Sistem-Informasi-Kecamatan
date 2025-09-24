@@ -104,7 +104,7 @@
                                 File harus berformat PDF, maksimal 2MB. Biarkan kosong jika tidak ingin mengubah file.
                                 @if($asetTanahWarga->bukti_kepemilikan)
                                     <br>
-                                    <a href="{{ asset('storage/' . $asetTanahWarga->bukti_kepemilikan) }}" target="_blank" class="text-primary">
+                                    <a href="{{ asset('uploads/' . $asetTanahWarga->bukti_kepemilikan) }}" target="_blank" class="text-primary">
                                         <i class="fas fa-file-pdf me-1"></i> Lihat Bukti Kepemilikan Saat Ini
                                     </a>
                                 @endif

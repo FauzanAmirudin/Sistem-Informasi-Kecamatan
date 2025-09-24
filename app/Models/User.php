@@ -58,7 +58,7 @@ class User extends Authenticatable
     {
         if ($this->profile_photo) {
             // Generate URL for profile photo using asset helper
-            return asset('storage/profile-photos/' . $this->profile_photo);
+            return asset('uploads/profile-photos/' . $this->profile_photo);
         }
         return asset('images/default-avatar.svg');
     }

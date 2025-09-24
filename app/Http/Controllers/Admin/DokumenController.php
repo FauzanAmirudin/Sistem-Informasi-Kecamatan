@@ -41,7 +41,7 @@ class DokumenController extends Controller
         foreach ($request->file('files') as $file) {
             try {
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                $filePath = $file->storeAs('dokumen', $fileName, 'public');
+                $filePath = $file->storeAs('dokumen', $fileName, 'uploads');
                 
                 Dokumen::create([
                     'desa_id' => $request->desa_id,
@@ -110,13 +110,13 @@ class DokumenController extends Controller
             $file = $request->file('file');
             
             // Hapus file lama jika ada
-            if ($dokuman->file_path && Storage::disk('public')->exists($dokuman->file_path)) {
-                Storage::disk('public')->delete($dokuman->file_path);
+            if ($dokuman->file_path && Storage::disk('uploads')->exists($dokuman->file_path)) {
+                Storage::disk('uploads')->delete($dokuman->file_path);
             }
             
             // Upload file baru
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('dokumen', $fileName, 'public');
+            $filePath = $file->storeAs('dokumen', $fileName, 'uploads');
             
             // Update data file
             $data['file_path'] = $filePath;
@@ -133,8 +133,8 @@ class DokumenController extends Controller
     public function destroy(Dokumen $dokuman)
     {
         // Hapus file dari storage jika ada
-        if ($dokuman->file_path && Storage::disk('public')->exists($dokuman->file_path)) {
-            Storage::disk('public')->delete($dokuman->file_path);
+        if ($dokuman->file_path && Storage::disk('uploads')->exists($dokuman->file_path)) {
+            Storage::disk('uploads')->delete($dokuman->file_path);
         }
         
         $dokuman->delete();
@@ -145,7 +145,7 @@ class DokumenController extends Controller
     public function download(Dokumen $dokuman)
     {
         // Cek apakah file ada di storage
-        if (!$dokuman->file_path || !Storage::disk('public')->exists($dokuman->file_path)) {
+        if (!$dokuman->file_path || !Storage::disk('uploads')->exists($dokuman->file_path)) {
             return redirect()->back()->with('error', 'File tidak ditemukan.');
         }
 
@@ -174,6 +174,7 @@ class DokumenController extends Controller
         $downloadName = str_replace(' ', '_', $dokuman->nama_dokumen) . $extension;
 
         // Return file untuk didownload
-        return response()->download(storage_path('app/public/' . $dokuman->file_path), $downloadName);
+        $absolutePath = Storage::disk('uploads')->path($dokuman->file_path);
+        return response()->download($absolutePath, $downloadName);
     }
 }

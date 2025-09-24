@@ -121,7 +121,7 @@
                         <td class="fw-bold">Bukti Kepemilikan</td>
                         <td>
                             @if($asetTanahWarga->bukti_kepemilikan)
-                                <a href="{{ asset('storage/' . $asetTanahWarga->bukti_kepemilikan) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                <a href="{{ asset('uploads/' . $asetTanahWarga->bukti_kepemilikan) }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-file-pdf me-1"></i> Lihat Dokumen
                                 </a>
                             @else

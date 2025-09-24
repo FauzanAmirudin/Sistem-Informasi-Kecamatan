@@ -90,20 +90,20 @@ class DesaController extends Controller
         if ($request->hasFile('sk_kepala_desa')) {
             // Hapus file lama
             if ($desa->sk_kepala_desa) {
-                Storage::disk('public')->delete($desa->sk_kepala_desa);
+                Storage::disk('uploads')->delete($desa->sk_kepala_desa);
             }
             $data['sk_kepala_desa'] = $request->file('sk_kepala_desa')
-                ->store('sk-kepala-desa', 'public');
+                ->store('sk-kepala-desa', 'uploads');
         }
 
         // Upload Monografi
         if ($request->hasFile('monografi_file')) {
             // Hapus file lama
             if ($desa->monografi_file) {
-                Storage::disk('public')->delete($desa->monografi_file);
+                Storage::disk('uploads')->delete($desa->monografi_file);
             }
             $data['monografi_file'] = $request->file('monografi_file')
-                ->store('monografi', 'public');
+                ->store('monografi', 'uploads');
         }
 
         $data['last_updated_at'] = now();
@@ -128,7 +128,7 @@ class DesaController extends Controller
         $desa = Desa::findOrFail($desaId);
         
         // Cek apakah file ada di storage
-        if (!$desa->sk_kepala_desa || !Storage::disk('public')->exists($desa->sk_kepala_desa)) {
+        if (!$desa->sk_kepala_desa || !Storage::disk('uploads')->exists($desa->sk_kepala_desa)) {
             return redirect()->back()->with('error', 'File SK Kepala Desa tidak ditemukan.');
         }
         
@@ -139,7 +139,8 @@ class DesaController extends Controller
         $downloadName = 'SK_Kepala_Desa_' . str_replace(' ', '_', $desa->nama_desa) . '.' . $extension;
         
         // Return file untuk didownload
-        return response()->download(storage_path('app/public/' . $desa->sk_kepala_desa), $downloadName);
+        $absolutePath = Storage::disk('uploads')->path($desa->sk_kepala_desa);
+        return response()->download($absolutePath, $downloadName);
     }
     
     /**
@@ -156,7 +157,7 @@ class DesaController extends Controller
         $desa = Desa::findOrFail($desaId);
         
         // Cek apakah file ada di storage
-        if (!$desa->monografi_file || !Storage::disk('public')->exists($desa->monografi_file)) {
+        if (!$desa->monografi_file || !Storage::disk('uploads')->exists($desa->monografi_file)) {
             return redirect()->back()->with('error', 'File Monografi Desa tidak ditemukan.');
         }
         
@@ -167,7 +168,8 @@ class DesaController extends Controller
         $downloadName = 'Monografi_Desa_' . str_replace(' ', '_', $desa->nama_desa) . '.' . $extension;
         
         // Return file untuk didownload
-        return response()->download(storage_path('app/public/' . $desa->monografi_file), $downloadName);
+        $absolutePath = Storage::disk('uploads')->path($desa->monografi_file);
+        return response()->download($absolutePath, $downloadName);
     }
 
     /**

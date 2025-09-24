@@ -35,7 +35,7 @@ class AsetTanahWargaController extends Controller
         }
 
         // Pastikan file ada di storage
-        if (!Storage::disk('public')->exists($asetTanahWarga->bukti_kepemilikan)) {
+        if (!Storage::disk('uploads')->exists($asetTanahWarga->bukti_kepemilikan)) {
             return redirect()->back()->with('error', 'File bukti kepemilikan tidak ditemukan di server.');
         }
 
@@ -46,7 +46,8 @@ class AsetTanahWargaController extends Controller
         $filename = 'Bukti_Kepemilikan_' . str_replace(' ', '_', $asetTanahWarga->nama_pemilik) . '_' . $asetTanahWarga->nomor_sph . '.' . $extension;
         
         // Download file
-return response()->download(storage_path('app/public/' . $asetTanahWarga->bukti_kepemilikan), $filename);
+        $absolutePath = Storage::disk('uploads')->path($asetTanahWarga->bukti_kepemilikan);
+        return response()->download($absolutePath, $filename);
     }
     
     public function index(Request $request)
@@ -134,7 +135,7 @@ return response()->download(storage_path('app/public/' . $asetTanahWarga->bukti_
         
         // Upload bukti kepemilikan
         if ($request->hasFile('bukti_kepemilikan')) {
-            $buktiPath = $request->file('bukti_kepemilikan')->store('aset-tanah-warga', 'public');
+            $buktiPath = $request->file('bukti_kepemilikan')->store('aset-tanah-warga', 'uploads');
             $validated['bukti_kepemilikan'] = $buktiPath;
         }
         
@@ -195,10 +196,10 @@ return response()->download(storage_path('app/public/' . $asetTanahWarga->bukti_
         if ($request->hasFile('bukti_kepemilikan')) {
             // Hapus file lama jika ada
             if ($asetTanahWarga->bukti_kepemilikan) {
-                Storage::disk('public')->delete($asetTanahWarga->bukti_kepemilikan);
+                Storage::disk('uploads')->delete($asetTanahWarga->bukti_kepemilikan);
             }
             
-            $buktiPath = $request->file('bukti_kepemilikan')->store('aset-tanah-warga', 'public');
+            $buktiPath = $request->file('bukti_kepemilikan')->store('aset-tanah-warga', 'uploads');
             $validated['bukti_kepemilikan'] = $buktiPath;
         }
         
@@ -223,7 +224,7 @@ return response()->download(storage_path('app/public/' . $asetTanahWarga->bukti_
         try {
             // Hapus file bukti kepemilikan jika ada
             if ($asetTanahWarga->bukti_kepemilikan) {
-                Storage::disk('public')->delete($asetTanahWarga->bukti_kepemilikan);
+                Storage::disk('uploads')->delete($asetTanahWarga->bukti_kepemilikan);
             }
             
             // Hapus data

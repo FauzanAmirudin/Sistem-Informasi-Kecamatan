@@ -140,7 +140,7 @@
             <div class="card-body text-center p-3 p-md-4">
                 @if($asetDesa->bukti_kepemilikan)
                     @php
-                        $extension = pathinfo(storage_path('app/public/' . $asetDesa->bukti_kepemilikan), PATHINFO_EXTENSION);
+                        $extension = pathinfo(public_path('uploads/' . $asetDesa->bukti_kepemilikan), PATHINFO_EXTENSION);
                         $isPdf = strtolower($extension) === 'pdf';
                     @endphp
                     
@@ -149,14 +149,14 @@
                             <i class="fas fa-file-pdf fa-5x text-danger"></i>
                         </div>
                         <h5>Dokumen PDF</h5>
-                        <a href="{{ $asetDesa->file_url }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
+                        <a href="{{ asset('uploads/' . $asetDesa->bukti_kepemilikan) }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
                             <i class="fas fa-eye me-1"></i> <span class="d-none d-md-inline">Lihat Dokumen</span><span class="d-inline d-md-none">Lihat</span>
                         </a>
                     @else
                         <div class="mb-3">
-                            <img src="{{ $asetDesa->file_url }}" alt="Bukti Kepemilikan" class="img-fluid rounded" style="max-height: 300px; max-width: 100%;">
+                            <img src="{{ asset('uploads/' . $asetDesa->bukti_kepemilikan) }}" alt="Bukti Kepemilikan" class="img-fluid rounded" style="max-height: 300px; max-width: 100%;">
                         </div>
-                        <a href="{{ $asetDesa->file_url }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
+                        <a href="{{ asset('uploads/' . $asetDesa->bukti_kepemilikan) }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
                             <i class="fas fa-eye me-1"></i> <span class="d-none d-md-inline">Lihat Gambar Asli</span><span class="d-inline d-md-none">Lihat</span>
                         </a>
                     @endif
@@ -183,8 +183,8 @@
             </div>
             <div class="card-body text-center p-3 p-md-4">
                 @if($asetDesa->foto)
-                    <img src="{{ Storage::url($asetDesa->foto) }}" alt="Foto Aset" class="img-fluid rounded" style="max-height: 300px; max-width: 100%;">
-                    <a href="{{ Storage::url($asetDesa->foto) }}" target="_blank" class="btn btn-primary mt-3 py-2 px-3 w-100 w-md-auto">
+                    <img src="{{ asset('uploads/' . $asetDesa->foto) }}" alt="Foto Aset" class="img-fluid rounded" style="max-height: 300px; max-width: 100%;">
+                    <a href="{{ asset('uploads/' . $asetDesa->foto) }}" target="_blank" class="btn btn-primary mt-3 py-2 px-3 w-100 w-md-auto">
                         <i class="fas fa-eye me-1"></i> <span class="d-none d-md-inline">Lihat Foto Asli</span><span class="d-inline d-md-none">Lihat</span>
                     </a>
                 @else

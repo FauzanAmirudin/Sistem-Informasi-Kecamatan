@@ -94,7 +94,7 @@ class PerangkatDesaController extends Controller
         // Upload SK
         if ($request->hasFile('sk_pengangkatan')) {
             $data['sk_pengangkatan'] = $request->file('sk_pengangkatan')
-                ->store('sk-perangkat', 'public');
+                ->store('sk-perangkat', 'uploads');
         }
 
         $perangkat = PerangkatDesa::create($data);
@@ -204,10 +204,10 @@ class PerangkatDesaController extends Controller
             if ($request->hasFile('sk_pengangkatan')) {
                 // Hapus file lama
                 if ($perangkatDesa->sk_pengangkatan) {
-                    Storage::disk('public')->delete($perangkatDesa->sk_pengangkatan);
+                    Storage::disk('uploads')->delete($perangkatDesa->sk_pengangkatan);
                 }
                 $data['sk_pengangkatan'] = $request->file('sk_pengangkatan')
-                    ->store('sk-perangkat', 'public');
+                    ->store('sk-perangkat', 'uploads');
             }
 
             // Simpan alasan update
@@ -303,7 +303,7 @@ class PerangkatDesaController extends Controller
             
             // Hapus file SK jika ada
             if ($perangkatDesa->sk_pengangkatan) {
-                Storage::disk('public')->delete($perangkatDesa->sk_pengangkatan);
+                Storage::disk('uploads')->delete($perangkatDesa->sk_pengangkatan);
             }
 
             $perangkatDesa->delete();

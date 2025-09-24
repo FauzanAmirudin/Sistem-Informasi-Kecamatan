@@ -72,7 +72,7 @@ class PerangkatDesa extends Model
 
     public function getFileUrlAttribute()
     {
-        return $this->sk_pengangkatan ? Storage::url($this->sk_pengangkatan) : null;
+        return $this->sk_pengangkatan ? asset('uploads/' . $this->sk_pengangkatan) : null;
     }
 
     // Helper methods
