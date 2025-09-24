@@ -105,7 +105,7 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <a href="{{ Storage::url($dokuman->file_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $dokuman->file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-eye me-1"></i> Lihat File
                                     </a>
                                     <a href="{{ route('admin-desa.dokumen.download', $dokuman) }}" class="btn btn-sm btn-outline-success ms-1">

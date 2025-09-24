@@ -170,12 +170,12 @@
                             @endphp
                             
                             @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                                <a href="{{ asset('storage/' . $asetTanahWarga->bukti_kepemilikan) }}" 
+                                <a href="{{ $asetTanahWarga->file_url }}" 
                                    class="btn btn-sm btn-outline-primary ms-2" target="_blank">
                                     <i class="fas fa-eye"></i> Lihat
                                 </a>
                             @else
-                                <a href="{{ asset('storage/' . $asetTanahWarga->bukti_kepemilikan) }}" 
+                                <a href="{{ $asetTanahWarga->file_url }}" 
                                    class="btn btn-sm btn-outline-primary ms-2" target="_blank">
                                     <i class="fas fa-file-pdf"></i> Lihat PDF
                                 </a>

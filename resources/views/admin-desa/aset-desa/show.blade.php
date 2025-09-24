@@ -149,14 +149,14 @@
                             <i class="fas fa-file-pdf fa-5x text-danger"></i>
                         </div>
                         <h5>Dokumen PDF</h5>
-                        <a href="{{ Storage::url($asetDesa->bukti_kepemilikan) }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
+                        <a href="{{ $asetDesa->file_url }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
                             <i class="fas fa-eye me-1"></i> <span class="d-none d-md-inline">Lihat Dokumen</span><span class="d-inline d-md-none">Lihat</span>
                         </a>
                     @else
                         <div class="mb-3">
-                            <img src="{{ Storage::url($asetDesa->bukti_kepemilikan) }}" alt="Bukti Kepemilikan" class="img-fluid rounded" style="max-height: 300px; max-width: 100%;">
+                            <img src="{{ $asetDesa->file_url }}" alt="Bukti Kepemilikan" class="img-fluid rounded" style="max-height: 300px; max-width: 100%;">
                         </div>
-                        <a href="{{ Storage::url($asetDesa->bukti_kepemilikan) }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
+                        <a href="{{ $asetDesa->file_url }}" target="_blank" class="btn btn-primary mt-2 py-2 px-3 w-100 w-md-auto">
                             <i class="fas fa-eye me-1"></i> <span class="d-none d-md-inline">Lihat Gambar Asli</span><span class="d-inline d-md-none">Lihat</span>
                         </a>
                     @endif

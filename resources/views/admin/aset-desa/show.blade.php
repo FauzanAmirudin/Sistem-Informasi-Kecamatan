@@ -144,7 +144,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h6 class="text-muted mb-2">Bukti Kepemilikan</h6>
-                        <a href="{{ asset('storage/' . $asetDesa->bukti_kepemilikan) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ $asetDesa->file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-file-alt me-1"></i>
                             Lihat Dokumen Bukti Kepemilikan
                         </a>

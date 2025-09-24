@@ -152,7 +152,7 @@
                         </td>
                         <td>
                             @if($perangkat->sk_pengangkatan)
-                                <a href="{{ Storage::url($perangkat->sk_pengangkatan) }}" 
+                                <a href="{{ $perangkat->file_url }}" 
                                    target="_blank" class="btn btn-sm btn-outline-info">
                                     <i class="fas fa-file-pdf"></i>
                                 </a>

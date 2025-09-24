@@ -205,7 +205,7 @@
                                 @if($asetDesa->bukti_kepemilikan)
                                 <div class="mt-2">
                                     <p class="mb-1">Dokumen saat ini:</p>
-                                    <a href="{{ Storage::url($asetDesa->bukti_kepemilikan) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $asetDesa->file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-file me-1"></i>
                                         <span class="d-none d-md-inline">Lihat Dokumen</span>
                                         <span class="d-inline d-md-none">Lihat</span>

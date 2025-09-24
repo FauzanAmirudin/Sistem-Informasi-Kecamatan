@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Traits\LogsActivity;
 
 class PerangkatDesa extends Model
@@ -67,6 +68,11 @@ class PerangkatDesa extends Model
     public function scopeAktif($query)
     {
         return $query->where('status', 'aktif')->where('is_current', true);
+    }
+
+    public function getFileUrlAttribute()
+    {
+        return $this->sk_pengangkatan ? Storage::url($this->sk_pengangkatan) : null;
     }
 
     // Helper methods

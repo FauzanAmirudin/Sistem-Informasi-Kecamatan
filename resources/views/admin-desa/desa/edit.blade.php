@@ -133,7 +133,7 @@
                                 <small class="text-muted">Kosongkan jika tidak ingin mengubah file</small>
                                 @if($desa->sk_kepala_desa)
                                 <div class="mt-2">
-                                    <a href="{{ Storage::url($desa->sk_kepala_desa) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $desa->sk_kepala_desa_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-file-pdf me-1"></i>
                                         Lihat File Saat Ini
                                     </a>
@@ -150,7 +150,7 @@
                                 <small class="text-muted">Kosongkan jika tidak ingin mengubah file</small>
                                 @if($desa->monografi_file)
                                 <div class="mt-2">
-                                    <a href="{{ Storage::url($desa->monografi_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $desa->monografi_file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-file-pdf me-1"></i>
                                         Lihat File Saat Ini
                                     </a>

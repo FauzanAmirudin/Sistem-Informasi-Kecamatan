@@ -212,7 +212,7 @@
                         <label for="sk_pengangkatan" class="form-label">SK Pengangkatan</label>
                         @if($perangkatDesa->sk_pengangkatan)
                             <div class="mb-2">
-                                <a href="{{ Storage::url($perangkatDesa->sk_pengangkatan) }}" 
+                                <a href="{{ $perangkatDesa->file_url }}" 
                                    target="_blank" class="btn btn-sm btn-outline-info">
                                     <i class="fas fa-eye me-1"></i>
                                     Lihat File Saat Ini

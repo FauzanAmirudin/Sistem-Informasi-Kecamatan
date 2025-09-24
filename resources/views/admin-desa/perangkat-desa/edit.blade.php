@@ -279,7 +279,7 @@
                                 
                                 @if($perangkatDesa->sk_pengangkatan)
                                 <div class="mt-2">
-                                    <a href="{{ Storage::url($perangkatDesa->sk_pengangkatan) }}" target="_blank" class="btn btn-sm btn-outline-info">
+                                    <a href="{{ $perangkatDesa->file_url }}" target="_blank" class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-file-pdf me-1"></i>
                                         Lihat File Saat Ini
                                     </a>

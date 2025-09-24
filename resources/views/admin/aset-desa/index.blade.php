@@ -166,7 +166,7 @@
                             <td>
                                 <strong>{{ $aset->nama_aset }}</strong>
                                 @if($aset->bukti_kepemilikan)
-                                <a href="{{ asset('storage/' . $aset->bukti_kepemilikan) }}" target="_blank" class="badge bg-info text-decoration-none">
+                                <a href="{{ $aset->file_url }}" target="_blank" class="badge bg-info text-decoration-none">
                                     <i class="fas fa-file-alt"></i> Bukti
                                 </a>
                                 @endif

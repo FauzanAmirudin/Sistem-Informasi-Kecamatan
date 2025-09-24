@@ -161,7 +161,7 @@
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-1">SK Kepala Desa</h6>
                                 @if($desa->sk_kepala_desa)
-                                    <a href="{{ Storage::url($desa->sk_kepala_desa) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $desa->sk_kepala_desa_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-download me-1"></i> Lihat Dokumen
                                     </a>
                                 @else
@@ -178,7 +178,7 @@
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-1">Monografi Desa</h6>
                                 @if($desa->monografi_file)
-                                    <a href="{{ Storage::url($desa->monografi_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $desa->monografi_file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-download me-1"></i> Lihat Dokumen
                                     </a>
                                 @else

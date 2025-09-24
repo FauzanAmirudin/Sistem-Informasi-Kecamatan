@@ -187,7 +187,7 @@
                     @endphp
                     
                     @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                        <img src="{{ asset('storage/' . $asetTanahWarga->bukti_kepemilikan) }}" 
+                        <img src="{{ $asetTanahWarga->file_url }}" 
                              class="img-fluid mb-3 border" alt="Bukti Kepemilikan">
                     @else
                         <div class="p-4 mb-3 bg-light rounded">
@@ -196,7 +196,7 @@
                         </div>
                     @endif
                     
-                    <a href="{{ asset('storage/' . $asetTanahWarga->bukti_kepemilikan) }}" 
+                    <a href="{{ $asetTanahWarga->file_url }}" 
                        class="btn btn-primary w-100" target="_blank">
                         <i class="fas fa-download me-1"></i>
                         Download Bukti Kepemilikan

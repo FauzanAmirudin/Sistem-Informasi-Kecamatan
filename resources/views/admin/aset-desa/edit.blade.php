@@ -139,7 +139,7 @@
                         <div class="mt-2">
                             <div class="d-flex align-items-center">
                                 <span class="badge bg-success me-2">File Saat Ini</span>
-                                <a href="{{ asset('storage/' . $asetDesa->bukti_kepemilikan) }}" target="_blank" class="text-decoration-none">
+                                <a href="{{ $asetDesa->file_url }}" target="_blank" class="text-decoration-none">
                                     <i class="fas fa-file-alt me-1"></i>
                                     Lihat Bukti Kepemilikan
                                 </a>

@@ -142,7 +142,7 @@
                             <label for="sk_kepala_desa" class="form-label">SK Kepala Desa</label>
                             @if($desa->sk_kepala_desa)
                                 <div class="mb-2">
-                                    <a href="{{ Storage::url($desa->sk_kepala_desa) }}" 
+                                    <a href="{{ $desa->sk_kepala_desa_url }}" 
                                        target="_blank" class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-eye me-1"></i>
                                         Lihat File Saat Ini
@@ -160,7 +160,7 @@
                             <label for="monografi_file" class="form-label">File Monografi</label>
                             @if($desa->monografi_file)
                                 <div class="mb-2">
-                                    <a href="{{ Storage::url($desa->monografi_file) }}" 
+                                    <a href="{{ $desa->monografi_file_url }}" 
                                        target="_blank" class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-eye me-1"></i>
                                         Lihat File Saat Ini

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AsetDesa extends Model
 {
@@ -100,6 +101,11 @@ class AsetDesa extends Model
     public function getTotalNilaiAttribute()
     {
         return $this->nilai_sekarang ?? $this->nilai_perolehan ?? 0;
+    }
+
+    public function getFileUrlAttribute()
+    {
+        return $this->bukti_kepemilikan ? Storage::url($this->bukti_kepemilikan) : null;
     }
 
     protected static function boot()

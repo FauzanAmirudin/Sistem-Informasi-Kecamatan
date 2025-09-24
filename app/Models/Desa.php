@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class Desa extends Model
 {
@@ -114,5 +115,16 @@ class Desa extends Model
     public function updateLastUpdated()
     {
         $this->update(['last_updated_at' => Carbon::now()]);
+    }
+
+    // File URL helpers
+    public function getSkKepalaDesaUrlAttribute()
+    {
+        return $this->sk_kepala_desa ? asset('storage/' . $this->sk_kepala_desa) : null;
+    }
+
+    public function getMonografiFileUrlAttribute()
+    {
+        return $this->monografi_file ? asset('storage/' . $this->monografi_file) : null;
     }
 }

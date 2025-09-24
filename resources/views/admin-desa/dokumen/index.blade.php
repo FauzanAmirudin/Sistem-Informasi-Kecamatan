@@ -86,11 +86,11 @@
                         </td>
                         <td>
                             @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-                                <a href="{{ Storage::url($dokumen->file_path) }}" target="_blank" class="btn btn-sm btn-info">
+                                <a href="{{ $dokumen->file_url }}" target="_blank" class="btn btn-sm btn-info">
                                     <i class="fas fa-image"></i>
                                 </a>
                             @elseif($extension == 'pdf')
-                                <a href="{{ Storage::url($dokumen->file_path) }}" target="_blank" class="btn btn-sm btn-info">
+                                <a href="{{ $dokumen->file_url }}" target="_blank" class="btn btn-sm btn-info">
                                     <i class="fas fa-file-pdf"></i>
                                 </a>
                             @else

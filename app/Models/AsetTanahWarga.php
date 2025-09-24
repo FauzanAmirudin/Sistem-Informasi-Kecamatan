@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class AsetTanahWarga extends Model
 {
@@ -48,5 +49,10 @@ class AsetTanahWarga extends Model
             return $this->luas_tanah * $this->nilai_per_meter;
         }
         return 0;
+    }
+
+    public function getFileUrlAttribute()
+    {
+        return $this->bukti_kepemilikan ? Storage::url($this->bukti_kepemilikan) : null;
     }
 }

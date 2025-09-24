@@ -119,11 +119,11 @@
 
                 @if($isImage)
                     <div class="text-center">
-                        <img src="{{ Storage::url($dokuman->file_path) }}" alt="{{ $dokuman->nama_dokumen }}" class="img-fluid rounded shadow-sm" style="max-height: 600px;">
+                        <img src="{{ $dokuman->file_url }}" alt="{{ $dokuman->nama_dokumen }}" class="img-fluid rounded shadow-sm" style="max-height: 600px;">
                     </div>
                 @elseif($isPdf)
                     <div class="ratio ratio-16x9" style="height: 600px;">
-                        <iframe src="{{ Storage::url($dokuman->file_path) }}" allowfullscreen></iframe>
+                        <iframe src="{{ $dokuman->file_url }}" allowfullscreen></iframe>
                     </div>
                 @else
                     <div class="text-center py-5">

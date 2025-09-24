@@ -85,7 +85,7 @@
                             <th>SK Pengangkatan</th>
                             <td>
                                 @if($perangkatDesa->sk_pengangkatan)
-                                    <a href="{{ Storage::url($perangkatDesa->sk_pengangkatan) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ $perangkatDesa->file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-file-pdf me-1"></i>
                                         Lihat Dokumen
                                     </a>

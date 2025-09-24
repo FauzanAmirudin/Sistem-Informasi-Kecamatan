@@ -93,7 +93,7 @@
                                 <td class="fw-bold">SK Pengangkatan:</td>
                                 <td>
                                     @if($perangkatDesa->sk_pengangkatan)
-                                        <a href="{{ Storage::url($perangkatDesa->sk_pengangkatan) }}" 
+                                        <a href="{{ $perangkatDesa->file_url }}" 
                                            target="_blank" class="btn btn-sm btn-outline-info">
                                             <i class="fas fa-download me-1"></i>
                                             Download SK
