@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AsetTanahWargaController extends Controller
 {
@@ -19,7 +20,7 @@ class AsetTanahWargaController extends Controller
      * Download bukti kepemilikan aset tanah warga
      *
      * @param AsetTanahWarga $asetTanahWarga
-     * @return StreamedResponse
+     * @return \Illuminate\Http\RedirectResponse|BinaryFileResponse
      */
     public function downloadBuktiKepemilikan(AsetTanahWarga $asetTanahWarga)
     {
@@ -30,12 +31,12 @@ class AsetTanahWargaController extends Controller
 
         // Pastikan file bukti kepemilikan ada
         if (!$asetTanahWarga->bukti_kepemilikan) {
-            return back()->with('error', 'File bukti kepemilikan tidak ditemukan.');
+            return redirect()->back()->with('error', 'File bukti kepemilikan tidak ditemukan.');
         }
 
         // Pastikan file ada di storage
         if (!Storage::disk('public')->exists($asetTanahWarga->bukti_kepemilikan)) {
-            return back()->with('error', 'File bukti kepemilikan tidak ditemukan di server.');
+            return redirect()->back()->with('error', 'File bukti kepemilikan tidak ditemukan di server.');
         }
 
         // Dapatkan ekstensi file asli

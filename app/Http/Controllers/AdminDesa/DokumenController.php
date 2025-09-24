@@ -135,8 +135,8 @@ class DokumenController extends Controller
             $file = $request->file('file');
             
             // Hapus file lama jika ada
-            if ($dokuman->file_path && Storage::exists('public/' . $dokuman->file_path)) {
-                Storage::delete('public/' . $dokuman->file_path);
+            if ($dokuman->file_path && Storage::disk('public')->exists($dokuman->file_path)) {
+                Storage::disk('public')->delete($dokuman->file_path);
             }
             
             // Upload file baru
@@ -163,8 +163,8 @@ class DokumenController extends Controller
         }
 
         // Hapus file dari storage
-        if ($dokuman->file_path && Storage::exists('public/' . $dokuman->file_path)) {
-            Storage::delete('public/' . $dokuman->file_path);
+        if ($dokuman->file_path && Storage::disk('public')->exists($dokuman->file_path)) {
+            Storage::disk('public')->delete($dokuman->file_path);
         }
 
         $dokuman->delete();
@@ -180,7 +180,7 @@ class DokumenController extends Controller
         }
 
         // Cek apakah file ada di storage
-        if (!$dokuman->file_path || !Storage::exists('public/' . $dokuman->file_path)) {
+        if (!$dokuman->file_path || !Storage::disk('public')->exists($dokuman->file_path)) {
             return redirect()->back()->with('error', 'File tidak ditemukan.');
         }
 
@@ -206,6 +206,6 @@ class DokumenController extends Controller
         $downloadName = str_replace(' ', '_', $dokuman->nama_dokumen) . $extension;
 
         // Return file untuk didownload
-        return Storage::download('public/' . $dokuman->file_path, $downloadName);
+        return response()->download(storage_path('app/public/' . $dokuman->file_path), $downloadName);
     }
 }

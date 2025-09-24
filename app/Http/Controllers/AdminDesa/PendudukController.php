@@ -8,6 +8,7 @@ use App\Models\Desa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PendudukExport;
 use App\Exports\PendudukTemplatePdfExport;
@@ -351,9 +352,9 @@ class PendudukController extends Controller
      */
     public function downloadTemplate(Request $request)
     {
-        \Log::info('AdminDesa downloadTemplate hit', [
+        Log::info('AdminDesa downloadTemplate hit', [
             'url' => $request->fullUrl(),
-            'user_id' => optional(auth()->user())->id,
+            'user_id' => optional(Auth::user())->id,
         ]);
 
         $validated = $request->validate([

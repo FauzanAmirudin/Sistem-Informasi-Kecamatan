@@ -42,7 +42,7 @@ class UserController extends Controller
         if ($request->hasFile('profile_photo')) {
             $file = $request->file('profile_photo');
             $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/profile-photos'), $filename);
+            $filePath = $file->storeAs('profile-photos', $filename, 'uploads');
             $profilePhoto = $filename;
         }
 
@@ -99,13 +99,13 @@ class UserController extends Controller
         // Handle profile photo upload
         if ($request->hasFile('profile_photo')) {
             // Delete old photo if exists
-            if ($user->profile_photo && file_exists(public_path('uploads/profile-photos/' . $user->profile_photo))) {
-                unlink(public_path('uploads/profile-photos/' . $user->profile_photo));
+            if ($user->profile_photo && Storage::disk('uploads')->exists('profile-photos/' . $user->profile_photo)) {
+                Storage::disk('uploads')->delete('profile-photos/' . $user->profile_photo);
             }
 
             $file = $request->file('profile_photo');
             $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/profile-photos'), $filename);
+            $filePath = $file->storeAs('profile-photos', $filename, 'uploads');
             $updateData['profile_photo'] = $filename;
         }
 
@@ -182,8 +182,8 @@ class UserController extends Controller
 
     public function removeProfilePhoto(User $user)
     {
-        if ($user->profile_photo && file_exists(public_path('uploads/profile-photos/' . $user->profile_photo))) {
-            unlink(public_path('uploads/profile-photos/' . $user->profile_photo));
+        if ($user->profile_photo && Storage::disk('uploads')->exists('profile-photos/' . $user->profile_photo)) {
+            Storage::disk('uploads')->delete('profile-photos/' . $user->profile_photo);
         }
 
         $user->update(['profile_photo' => null]);

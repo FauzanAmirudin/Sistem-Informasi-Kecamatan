@@ -7,6 +7,7 @@ use App\Models\Dokumen;
 use App\Models\Desa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DokumenController extends Controller
 {
@@ -50,7 +51,7 @@ class DokumenController extends Controller
                     'file_path' => $filePath,
                     'file_type' => $file->getClientMimeType(),
                     'file_size' => $file->getSize(),
-                    'uploaded_by' => \Illuminate\Support\Facades\Auth::id(),
+                    'uploaded_by' => Auth::id(),
                     'is_public' => $request->has('is_public'),
                 ]);
                 
@@ -109,8 +110,8 @@ class DokumenController extends Controller
             $file = $request->file('file');
             
             // Hapus file lama jika ada
-            if ($dokuman->file_path && file_exists(storage_path('app/public/' . $dokuman->file_path))) {
-                \Illuminate\Support\Facades\Storage::delete('public/' . $dokuman->file_path);
+            if ($dokuman->file_path && Storage::disk('public')->exists($dokuman->file_path)) {
+                Storage::disk('public')->delete($dokuman->file_path);
             }
             
             // Upload file baru
@@ -131,6 +132,11 @@ class DokumenController extends Controller
 
     public function destroy(Dokumen $dokuman)
     {
+        // Hapus file dari storage jika ada
+        if ($dokuman->file_path && Storage::disk('public')->exists($dokuman->file_path)) {
+            Storage::disk('public')->delete($dokuman->file_path);
+        }
+        
         $dokuman->delete();
         return redirect()->route('admin.dokumen.index')
             ->with('success', 'Dokumen berhasil dihapus.');
@@ -139,7 +145,7 @@ class DokumenController extends Controller
     public function download(Dokumen $dokuman)
     {
         // Cek apakah file ada di storage
-        if (!$dokuman->file_path || !\Illuminate\Support\Facades\Storage::exists('public/' . $dokuman->file_path)) {
+        if (!$dokuman->file_path || !Storage::disk('public')->exists($dokuman->file_path)) {
             return redirect()->back()->with('error', 'File tidak ditemukan.');
         }
 
@@ -168,6 +174,6 @@ class DokumenController extends Controller
         $downloadName = str_replace(' ', '_', $dokuman->nama_dokumen) . $extension;
 
         // Return file untuk didownload
-        return \Illuminate\Support\Facades\Storage::download('public/' . $dokuman->file_path, $downloadName);
+        return response()->download(storage_path('app/public/' . $dokuman->file_path), $downloadName);
     }
 }

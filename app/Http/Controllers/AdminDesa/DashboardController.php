@@ -128,7 +128,7 @@ class DashboardController extends Controller
         
         $fileName = 'statistik_desa_' . Str::slug($desa->nama_desa) . '_' . $tahun . '.xlsx';
         
-        return Excel::download(new StatistikExport($desa_id, $tahun), $fileName);
+        return Excel::download(new StatistikExport($desa_id), $fileName);
     }
 
     /**
@@ -145,6 +145,6 @@ class DashboardController extends Controller
         
         $fileName = 'statistik_desa_' . Str::slug($desa->nama_desa) . '_' . $tahun . '.pdf';
         
-        return Excel::download(new StatistikPdfExport($desa_id, $tahun), $fileName);
+        return Excel::download(new StatistikPdfExport($desa_id), $fileName);
     }
 }

@@ -13,7 +13,7 @@ class ProfilDesaController extends Controller
     /**
      * Display the profile of the village.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {   
@@ -29,7 +29,7 @@ class ProfilDesaController extends Controller
     /**
      * Show the form for editing the profile.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit()
     {
@@ -46,7 +46,7 @@ class ProfilDesaController extends Controller
      * Update the profile in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
@@ -118,7 +118,7 @@ class ProfilDesaController extends Controller
     /**
      * Download monografi file.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadMonografi()
     {

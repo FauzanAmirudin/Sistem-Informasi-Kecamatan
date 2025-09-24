@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Dokumen extends Model
 {
@@ -54,6 +55,6 @@ class Dokumen extends Model
 
     public function getFileUrlAttribute()
     {
-        return asset('storage/' . $this->file_path);
+        return Storage::url($this->file_path);
     }
 }
