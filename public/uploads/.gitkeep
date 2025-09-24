@@ -1,0 +1,2 @@
+# This file ensures that the uploads directory structure is maintained in git
+# even when directories are empty
