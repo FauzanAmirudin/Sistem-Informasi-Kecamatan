@@ -4,6 +4,8 @@
     </IfModule>
 
     RewriteEngine On
+    # Allow direct access to files under /uploads (serve static, skip Laravel)
+    RewriteRule ^uploads/(.*)$ - [L,NC]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -22,4 +24,10 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # Security headers for previews (PDF/images in iframes)
+    <IfModule mod_headers.c>
+        Header always set X-Frame-Options "SAMEORIGIN"
+        Header set X-Content-Type-Options "nosniff"
+    </IfModule>
 </IfModule>
